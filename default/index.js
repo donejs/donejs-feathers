@@ -166,6 +166,11 @@ module.exports = generators.Base.extend({
         options
       );
       this.fs.copyTpl(
+        this.templatePath(path.join(frameworkFolder, 'page-four-oh-four', '**', '*.*')),
+        this.destinationPath(path.join(folder, 'components', 'page-four-oh-four')),
+        options
+      );
+      this.fs.copyTpl(
         this.templatePath(path.join(frameworkFolder, 'less', '**', '*.*')),
         this.destinationPath(path.join(folder, 'less')),
         options

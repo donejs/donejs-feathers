@@ -50,6 +50,7 @@
         <ul>
           <li><code>page-home/</code> - the home page (this page)</li>
           <li><code>page-auth/</code> - which handles both the <code>/login</code> and <code>/signup</code> routes.</li>
+          <li><code>page-four-oh-four/</code> - the 404 page.</li>
           <li><code>page-dashboard/</code> - which is a placeholder component as a starting place for your app.</li>
           <li><code>main-nav/</code> - The toolbar at the top of the home and auth pages.</li>
         </ul></li>
