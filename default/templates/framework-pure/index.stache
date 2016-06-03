@@ -4,7 +4,7 @@
   </head>
   <body>
     <can-import from="pure-css" />
-    <can-import from="<%= pkgName %>/less/styles.less!" />
+    <can-import from="<%= pkgName %>/styles.less!" />
     <can-import from="<%= pkgName %>/app" export-as="viewModel" />
     <can-import from="<%= pkgName %>/components/page-home/" />
     <can-import from="<%= pkgName %>/components/page-auth/" />

@@ -55,9 +55,8 @@
           <li><code>main-nav/</code> - The toolbar at the top of the home and auth pages.</li>
         </ul></li>
       <li><code>img/</code> - contains the background and logo images.</li>
-      <li><code>less/</code> - contains the global styles for the application in <code>styles.less</code> and responsive layout info in <code>breakpoints.less</code>.</li>
+      <li><code>less/</code> - is the place for additional global styles that deserve their own file. It currently contains responsive layout styles in <code>breakpoints.less</code>.</li>
       <li><code>models/</code> - contains model definitions that help talk to the Feathers server.
-
         <ul>
           <li><code>feathers.js</code> - defines the connection to one or more Feathers servers.</li>
           <li><code>session.js</code> - assists with logging the user in.</li>
@@ -67,6 +66,7 @@
       <li><code>test/</code> - contains application-level tests and imports other modules tests so they can all be run at together.</li>
       <li><code>app.js</code> - contains the main application state and the routing definitions.</li>
       <li><code>index.stache</code> - is the main entry point of the application. It’s equivalent to a typical index.html file, but uses the <a href="https://canjs.com/docs/can.stache.html">Stache</a> templating engine. The <code>&#123;&#123;#switch page&#125&#125</code> block controls which of the page-components is visible based on the value of the <code>page</code> attribute in the application state.</li>
+      <li><code>styles.less</code> - contains the primary, global styles for the application.</li>
     </ul>
 
     <h3>Customizing the Pages</h3>

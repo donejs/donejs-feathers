@@ -151,6 +151,11 @@ module.exports = generators.Base.extend({
         options
       );
       this.fs.copyTpl(
+        this.templatePath(path.join(frameworkFolder, 'styles.less')),
+        this.destinationPath(path.join(folder, 'styles.less')),
+        options
+      );
+      this.fs.copyTpl(
         this.templatePath(path.join(frameworkFolder, 'page-auth', '**', '*.*')),
         this.destinationPath(path.join(folder, 'components', 'page-auth')),
         options
