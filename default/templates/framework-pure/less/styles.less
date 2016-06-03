@@ -1,0 +1,32 @@
+@import 'locate://<%= pkgName %>/less/breakpoints.less';
+
+html, body {
+  height: 100%;
+  background: url('../img/default-background.jpg');
+  background-size: cover;
+}
+body {
+  font-family: "Helvetica Neue-Light","Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
+  font-weight: 300;
+}
+.container {
+  width: 100%;
+  margin: 0 auto;
+  .bp-mobile-large({
+    width: 90%;
+  });
+  .bp-desktop({
+    width: 80%;
+  });
+}
+.content {
+  background: white;
+  padding: 1.4em 2em;
+  margin-top: 1em;
+}
+.pull-right {
+  float: right;
+}
+.text-center {
+  text-align: center;
+}

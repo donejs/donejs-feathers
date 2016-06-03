@@ -1,0 +1,22 @@
+@import 'locate://<%= pkgName %>/less/breakpoints.less';
+
+main-nav {
+	display: block;
+	background: rgba(255, 255, 255, 0.9);
+
+	a.logo {
+		line-height: 30px;
+		padding: 0 0.3em;
+		svg {
+			height: 24px;
+			position: relative;
+			top: 4px;
+		}
+	}
+
+	.menu-right {
+		.bp-mobile-medium({
+			float: right;
+		});
+	}
+}
