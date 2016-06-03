@@ -75,7 +75,7 @@
 
     <h3>Removing the Home page</h3>
 
-    <p>If your applications home page is hosted on another server, you might want to remove the home page from the app. Here are the changes you’ll need to make:</p>
+    <p>If your application's home page is hosted on another server, you might want to remove the home page from the app. Here are the changes you’ll need to make:</p>
 
     <ol>
     	<li>Make the auth page the default page by changing the <code>routePage</code> function in <code>app.js</code>. Change <code>val = &#39;home&#39;</code> to <code>val=&#39;auth&#39;</code>.</li>
