@@ -2,7 +2,7 @@
 <can-import from="<%= pkgName %>/components/main-nav/" />
 
 <main-nav></main-nav>
-<auth-component local <% if(providers.length){ %><%= providers.join(',') %><% } %> >
+<auth-component local <% if(providers.length){ %>providers="<%= providers.join(',') %>"<% } %> >
   <svg viewBox="0 0 98 63" class="login-logo">
     <g id="Desktop-HD---Top,-1-btn" transform="translate(-671.000000, -355.000000)">
       <g id="Right-Side" transform="translate(566.000000, 280.000000)">
