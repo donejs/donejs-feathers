@@ -55,13 +55,15 @@ const AppViewModel = Map.extend({
      */
     page: {
       serialize: true,
-      get(val, setVal){
-        if (window.doneSsr) {
-          this.attr('sessionPromise')
-            .then(() => this.routePage(val, setVal))
-            .catch(() => this.routePage(val, setVal));
-        } else {
-          return this.routePage(val);
+      get(page, setPage){
+        if (page) {
+          if (window.doneSsr) {
+            this.attr('sessionPromise')
+            .then(() => this.routePage(page, setPage))
+            .catch(() => this.routePage(page, setPage));
+          } else {
+            return this.routePage(page);
+          }
         }
       }
     },
@@ -88,33 +90,36 @@ const AppViewModel = Map.extend({
   /**
    * `routePage` controls the pages that the current user can view.
    */
-  routePage: function(val, setVal){
-    let session = this.attr('session');
-    // If true, the page is public.
-    let pagePermissions = {
-      home: 'public',
-      auth: 'public',
-      dashboard: 'private'
-    };
-    // USER LOGGED IN...
-    if (session) {
-      // Show a 404 if the page doesn't exist.
-      if(!pagePermissions[val]){
-        val = 'four-oh-four';
-      }
+   routePage: function(page, setPage){
+     let session = this.attr('session');
+     let pageConfig = {
+       home: 'public',
+       auth: 'public',
+       login: 'public',
+       signup: 'public',
+       dashboard: 'private'
+     };
 
-    // USER NOT LOGGED IN...
-    } else {
-      // Show a 404 if the page doesn't exist or the user isn't authorized.
-      if(!pagePermissions[val] || pagePermissions[val] !== 'public'){
-        val = 'four-oh-four';
-      }
-    }
-    if (setVal) {
-      setVal(val);
-    }
-    return val;
-  },
+     // IF THE USER IS LOGGED IN...
+     if (session) {
+
+     // IF THE USER IS NOT LOGGED IN...
+     } else {
+       if (pageConfig[page] !== 'public') {
+         page = 'login';
+       }
+     }
+
+     // 404 if the page isn't in the config.
+     if(!pageConfig[page]){
+       page = 'four-oh-four';
+     }
+
+     if (window.doneSsr && setPage) {
+       setPage(page);
+     }
+     return page;
+   },
 
   /**
    * Logs the user out by destroying the session, which disposes of the JWT token.
@@ -129,9 +134,10 @@ const AppViewModel = Map.extend({
 });
 
 <% if(includeBasicLayout){ %>
-route('login', {page: 'auth', subpage: 'login'});
-route('signup', {page: 'auth', subpage: 'signup'});
-route('login/:subpage');
+route('/login', {page: 'auth', subpage: 'login'});
+route('/signup', {page: 'auth', subpage: 'signup'});
+route('/auth/success', {page: 'auth', subpage: 'success'});
+route('/auth/failure', {page: 'auth', subpage: 'failure'});
 <% }%>route('/:page', {page: 'home'});
 
 export default AppViewModel;
