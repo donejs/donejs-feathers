@@ -136,7 +136,7 @@ route(&#39;signup&#39;, {page: &#39;auth&#39;, subpage: &#39;signup&#39;});
 
 <pre><code>{
   &quot;id&quot;: 123,
-  &quot;_id&quot;: 1234567890,
+  &quot;_id&quot;: 123,
   &quot;exp&quot;: 2999999999
 }
 </code></pre>
