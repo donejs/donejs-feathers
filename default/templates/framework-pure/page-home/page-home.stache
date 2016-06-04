@@ -167,5 +167,7 @@ route(&#39;signup&#39;, {page: &#39;auth&#39;, subpage: &#39;signup&#39;});
     	<li>File an issue on <a href="https://github.com/feathersjs/feathers/issues">GitHub</a>. Feathers is also very modular, so you might want to check in slack for the appropriate repo for your particular issue.</li>
     </ul>
 
+    <p>Desk background photo by <a href="https://unsplash.com/@dustinlee" target="_blank">unsplash.com/@dustinlee</a></p>
+
   </div>
 </div>
