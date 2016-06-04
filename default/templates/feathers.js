@@ -3,7 +3,7 @@ import Feathers from 'can-connect-feathers';
 const feathers = new Feathers({
   url: '<%= feathersUrl %>',
   idProp: '<%= idProp %>',
-  tokenLocation: 'ssr-cookie',
+  tokenLocation: 'feathers-jwt',
   tokenEndpoint: 'auth/token',
   localEndpoint: 'auth/local'
 });
