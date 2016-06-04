@@ -10,9 +10,13 @@
       </li> -->
     </ul>
     <ul class="pure-menu-list menu-right">
-      <li class="pure-menu-item {{#is subpage 'login'}}active{{/is}}">
-        <a href="{{routeUrl page='auth' subpage='login'}}" class="pure-menu-link">Login</a>
-      </li>
+      {{#if session}}
+        <a href="{{routeUrl page='dashboard'}}" class="pure-button pure-button-primary">Open Dashboard</a>
+      {{else}}
+        <li class="pure-menu-item {{#is subpage 'login'}}active{{/is}}">
+          <a href="{{routeUrl page='auth' subpage='login'}}" class="pure-menu-link">Login</a>
+        </li>
+      {{/if}}
     </ul>
   </div>
 </div>
