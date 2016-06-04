@@ -87,11 +87,6 @@ const AppViewModel = Map.extend({
 
   /**
    * `routePage` controls the pages that the current user can view.
-   *
-   * This implementation changes what the user sees at '/' depending on if they're
-   * logged in or not.  With no auth, they'll see the 'home' page and won't be
-   * able to go to the 'dashboard' page.  With auth, they will see the 'dashboard'
-   * page, but will still be able to see the home page by going to '/home'.
    */
   routePage: function(val, setVal){
     let session = this.attr('session');
@@ -101,21 +96,15 @@ const AppViewModel = Map.extend({
       auth: 'public',
       dashboard: 'private'
     };
-    // IF THE USER IS LOGGED IN...
+    // USER LOGGED IN...
     if (session) {
-      if (window.location.pathname === '/') {
-        val = 'dashboard';
-      }
       // Show a 404 if the page doesn't exist.
       if(!pagePermissions[val]){
         val = 'four-oh-four';
       }
 
-    // IF THE USER IS NOT LOGGED IN...
+    // USER NOT LOGGED IN...
     } else {
-      if (window.location.pathname === '/' || window.location.pathname === '/dashboard') {
-        val = 'home';
-      }
       // Show a 404 if the page doesn't exist or the user isn't authorized.
       if(!pagePermissions[val] || pagePermissions[val] !== 'public'){
         val = 'four-oh-four';
@@ -143,6 +132,6 @@ const AppViewModel = Map.extend({
 route('login', {page: 'auth', subpage: 'login'});
 route('signup', {page: 'auth', subpage: 'signup'});
 route('login/:subpage');
-<% }%>route(':page');
+<% }%>route('/:page', {page: 'home'});
 
 export default AppViewModel;
