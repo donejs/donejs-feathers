@@ -7,7 +7,7 @@ import template from './page-dashboard.stache!';
 export const ViewModel = Map.extend({
   define: {
     message: {
-      value: 'This is the page-dashboard component'
+      value: 'This is the page-dashboard component. Add your app here.'
     }
   }
 });
