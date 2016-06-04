@@ -118,6 +118,10 @@ return val;
 route(&#39;signup&#39;, {page: &#39;auth&#39;, subpage: &#39;signup&#39;});
 </code></pre>
 
+    <h4><strong>Customize the order of login buttons</strong></h4>
+
+    <p>If you selected any login providers, you can customize the order they appear in the auth-component by changing the order that they appear in the providers attribute. For example, <code>&lt;auth-component providers="github,facebook"></code> will show the GitHub button before the one for Facebook.</p>
+
     <!-- <h3>Understanding how Auth works with Server Side Rendering</h3> -->
 
     <h3>Running without a Feathers server</h3>
