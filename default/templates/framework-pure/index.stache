@@ -16,7 +16,7 @@
         <page-home></page-home>
       {{/case}}
       {{#case 'auth'}}
-        <page-auth {^session}="session" {(page)}="page" {(subpage)}="subpage"></page-auth>
+        <page-auth {(session)}="session" {(page)}="page" {(subpage)}="subpage"></page-auth>
       {{/case}}
       {{#case 'dashboard'}}
         <page-dashboard></page-dashboard>
