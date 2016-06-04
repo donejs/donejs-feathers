@@ -6,8 +6,12 @@ import template from './page-auth.stache!';
 
 export const ViewModel = Map.extend({
   define: {
-    message: {
-      value: 'This is the page-auth component'
+    subpage: { }, // Passed in from AppState.
+    isOAuthRoute: {
+      get(){
+        let subpage = this.attr('subpage');
+        return subpage === 'success' || subpage === 'failure';
+      }
     }
   }
 });
