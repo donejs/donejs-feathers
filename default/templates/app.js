@@ -139,7 +139,6 @@ const AppViewModel = Map.extend({
 <% if(includeBasicLayout){ %>
 route('/login', {page: 'auth', subpage: 'login'});
 route('/signup', {page: 'auth', subpage: 'signup'});
-route('/auth/success', {page: 'auth', subpage: 'success'});
 route('/auth/failure', {page: 'auth', subpage: 'failure'});
 <% }%>route('/:page', {page: 'home'});
 
