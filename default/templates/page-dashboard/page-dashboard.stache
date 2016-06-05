@@ -1,1 +1,2 @@
 <div> {{message}} </div>
+<p><a href="javascript://" ($click)="logout">Logout</a></p>
