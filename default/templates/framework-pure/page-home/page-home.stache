@@ -98,7 +98,7 @@ return val;
 
     <p>Depending on how complex your business logic is, you may need to also modify the <code>session</code> attribute in that same file.</p>
 
-    <h3>The Auth page</h3>
+    <h3>Authentication</h3>
 
     <p>The auth page is configured to show with the <code>/login</code> route and (if you opted to allow signup) the <code>/signup</code> route:</p>
 
@@ -106,9 +106,49 @@ return val;
 route(&#39;signup&#39;, {page: &#39;auth&#39;, subpage: &#39;signup&#39;});
 </code></pre>
 
-    <h4><strong>Customize the order of login buttons</strong></h4>
+    <h4>Customize the order of login buttons</h4>
 
     <p>If you selected any login providers, you can customize the order they appear in the auth-component by changing the order that they appear in the providers attribute. For example, <code>&lt;auth-component providers="github,facebook"></code> will show the GitHub button before the one for Facebook.</p>
+
+    <h4>Preparing for OAuth login</h4>
+
+    <p>The <code>feathers-authentication</code> plugin includes the ability to login using OAuth providers like Facebook, GitHub, and more.  OAuth involves redirecting the browser to the login provider, where the user will authorize (or decline authorization to) your app.  Upon authorization by the user, the login provider will redirect back to a specific page in your app.</p>
+
+    <p>Feathers provides its own success/failure pages, server side, but we want to disable them so we can handle everything in our client-side code.  To do this, we need to modify the environment configuration in the <code>config/</code> folder on the Feathers server.  It needs to include the first four attributes under <code>"auth"</code> in this example:</p>
+
+<pre><code>// config/default.json on the server
+{
+  "host": "localhost",
+  "port": 3030,
+  "nedb": "../data/",
+  "public": "../public/",
+  "auth": {
+
+    "shouldSetupSuccessRoute": false,
+    "shouldSetupFailureRoute": false,
+    "successRedirect": "/dashboard",
+    "failureRedirect": "/auth/failure",
+
+    "token": {
+      "secret": "FEATHERS_AUTH_SECRET"
+    },
+    "local": {},
+    "github": {
+      "clientID": "your github client id",
+      "clientSecret": "your github client secret",
+      "permissions": {
+        "scope": []
+      }
+    }
+  }
+}
+</code></pre>
+
+    <p>Now, when the user successfully logs in through any OAuth provider, they will be redirected to the <code>/dashboard</code> page.  Failed OAuth logins will go to <code>/auth/failure</code>.  Remember that you'll need to update the config for every environment where you plan to deploy.</p>
+
+    <!-- <h4>Gathering additional data from the user</h4> -->
+
+    <!-- <p>When a user successfully logs in with an OAuth provider, their user record in the database is updated with information sent from the login provider.  In the above example, the user will have a <code>github</code> attribute with the additional data that GitHub provided.  But what if the information that you get from the login provider isn't enough for your app's requirements?  Check out <a href="">this tutorial for a solution.</a></p> -->
 
     <!-- <h3>Understanding how Auth works with Server Side Rendering</h3> -->
 
