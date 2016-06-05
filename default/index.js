@@ -211,9 +211,8 @@ module.exports = generators.Base.extend({
         this.destinationPath(path.join(folder, 'less')),
         options
       );
-      console.log(this.fs.copy);
       this.fs.copy(
-        this.templatePath(path.join(frameworkFolder, 'img', '**', '*.*')),
+        this.templatePath(path.join('img', '**', '*.*')),
         this.destinationPath(path.join(folder, 'img')),
         options
       );
