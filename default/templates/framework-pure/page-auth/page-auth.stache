@@ -1,19 +1,8 @@
 <can-import from="auth-component" />
-<can-import from="./success/" />
-<can-import from="./failure/" />
 <can-import from="<%= pkgName %>/components/main-nav/" />
 
 <main-nav></main-nav>
-{{#if isOAuthRoute}}
-  {{#is subpage 'success'}}
-    <auth-success></auth-success>
-  {{/is}}
-  {{#is subpage 'failure'}}
-    <auth-failure></auth-failure>
-  {{/is}}
-{{else}}
-  <auth-component local <% if(providers.length){ %>providers="<%= providers.join(',') %>"<% } %> >
-    <can-import from="gh-test/img/logo.stache" {^@value}="*logo"/>{{>*logo}}
-    <h1>My Awesome Company</h1>
-  </auth-component>
-{{/if}}
+<auth-component local <% if(providers.length){ %>providers="<%= providers.join(',') %>"<% } %> >
+  <can-import from="gh-test/img/logo.stache" {^@value}="*logo"/>{{>*logo}}
+  <h1>My Awesome Company</h1>
+</auth-component>
