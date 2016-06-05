@@ -89,6 +89,8 @@ const AppViewModel = Map.extend({
 
   /**
    * `routePage` controls the pages that the current user can view.
+   * If a non-authenticated user tries to access a private page, they will be
+   * shown the login page. Also handles 404s.
    */
    routePage: function(page, setPage){
      let session = this.attr('session');
@@ -102,6 +104,7 @@ const AppViewModel = Map.extend({
 
      // IF THE USER IS LOGGED IN...
      if (session) {
+       // Perform some custom logic for logged-in users if you want.
 
      // IF THE USER IS NOT LOGGED IN...
      } else {
