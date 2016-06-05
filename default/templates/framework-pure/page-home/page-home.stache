@@ -184,7 +184,6 @@ route(&#39;signup&#39;, {page: &#39;auth&#39;, subpage: &#39;signup&#39;});
     <h2>Getting Help</h2>
 
     <p><strong>DoneJS Resources</strong></p>
-
     <ul>
     	<li>Read through the examples and docs on <a href="https://donejs.com/index.html">donejs.com</a>.</li>
     	<li>Visit the <a href="https://gitter.im/donejs/donejs">DoneJS room on Gitter</a>.</li>
@@ -192,11 +191,16 @@ route(&#39;signup&#39;, {page: &#39;auth&#39;, subpage: &#39;signup&#39;});
     </ul>
 
     <p><strong>FeathersJS Resources</strong></p>
-
     <ul>
     	<li>Read the <a href="docs.feathersjs.com">Feathers Book</a></li>
     	<li>Join the <a href="http://slack.feathersjs.com/">Feathers Slack</a></li>
     	<li>File an issue on <a href="https://github.com/feathersjs/feathers/issues">GitHub</a>. Feathers is also very modular, so you might want to check in slack for the appropriate repo for your particular issue.</li>
+    </ul>
+
+    <p><strong>PureCSS Resources</strong></p>
+    <ul>
+      <li>Read the <a href="http://purecss.io">PureCSS docs</a></li>
+      <li>Check out <a href="http://purecss.io/layouts/">example layouts</a></li>
     </ul>
 
     <p>Desk background photo by <a href="https://unsplash.com/@dustinlee" target="_blank">unsplash.com/@dustinlee</a></p>
