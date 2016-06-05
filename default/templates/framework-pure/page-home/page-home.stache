@@ -175,7 +175,7 @@ route(&#39;signup&#39;, {page: &#39;auth&#39;, subpage: &#39;signup&#39;});
 
         <p>Note that in the above payload data, the <code>exp</code> attribute represents the actual date when you want the token to expire. <code>new Date(exp * 1000)</code>. Also, whether you use <code>id</code> or <code>_id</code>, the property should match what you specified in the donejs-feathers generator.</p>
 
-        <p>Alternatively, to simulate a failed login by returning an error in the fixture function instead of an object.</p>
+        <p>Alternatively, simulate a failed login by returning an error in the fixture function instead of an object.</p>
       </li>
 
     	<li>Now, add an import statement to the top of <code>app.js</code> to load the fixtures: <code>import &#39;app-name/models/fixtures/&#39;;</code></li>
