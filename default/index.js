@@ -14,32 +14,22 @@ module.exports = generators.Base.extend({
   prompting: function () {
     var done = this.async();
 
+    console.log('');
+    console.log('Add Feathers to your DoneJS app.');
+    console.log('');
 		this.prompt({
-			name: 'setup',
-			type: 'checkbox',
-			required: true,
-			message: 'The following files will be generated.',
+      name: 'ui',
+      type: 'list',
+      message: 'Select an option',
       choices: [{
-        name: 'app.js - Setup auth attributes in the main app.',
-        value: 'appJs',
-        checked: true
+        name: 'Basic feathers connection.',
+        value: false
       }, {
-        name: 'Signup Model for Local Auth',
-        value: 'signupModel',
-        checked: true
-      }, {
-        name: 'Session Model',
-        value: 'sessionModel',
-        checked: true
-      }, {
-        name: 'Basic Site Layout / UI',
-        value: 'includeBasicLayout',
-        checked: true
+        name: 'Full site layout',
+        value: true
       }]
-		}, function (props) {
-      Object.keys(props.setup).forEach(prop => {
-        this.props[props.setup[prop]] = true;
-      });
+    }, function (props) {
+      this.props.ui = props.ui;
 
       var prompts = [{
         name: 'feathersUrl',
@@ -53,13 +43,15 @@ module.exports = generators.Base.extend({
         default: 'id'
       }];
 
-      if (this.props.includeBasicLayout) {
+      // If the user wants a UI...
+      if (this.props.ui) {
+        this.props.appJs = true;
         prompts.push({
           name: 'framework',
           type: 'list',
           message: `Select a CSS Framework.`,
           choices: [{
-            name: 'Pure CSS - a tiny css framework',
+            name: 'PureCSS - a tiny css framework',
             value: 'pure'
           }, {
             name: 'Bootstrap',
@@ -67,10 +59,13 @@ module.exports = generators.Base.extend({
           }]
         });
         prompts.push({
-    			name: 'providers',
-    			type: 'checkbox',
-    			message: 'Select the social auth providers you want to use.',
-          choices: [
+          name: 'providers',
+          type: 'checkbox',
+          message: 'Select the login options you want.',
+          choices: [{
+              name: 'local (email/password)',
+              value: 'local'
+            },
             'bitbucket',
             'dropbox',
             'facebook',
@@ -78,12 +73,53 @@ module.exports = generators.Base.extend({
             'google',
             'instagram',
           ]
-    		});
+        });
+
+      // If the user didn't want a UI, check if they want any of these files.
+      } else {
+        prompts.push({
+          name: 'setup',
+          type: 'checkbox',
+          message: `The file /models/feathers.js will be created. \nSelect any additional files you would like to create.`,
+          choices: [{
+            name: 'app.js - Setup auth attributes in the main app. Overwrites app.js',
+            value: 'appJs',
+            checked: false
+          }, {
+            name: 'Signup Model for Local Auth',
+            value: 'enableSignup',
+            checked: false
+          }, {
+            name: 'Session Model',
+            value: 'sessionModel',
+            checked: false
+          }]
+        });
       }
 
       this.prompt(prompts, function(props){
         _.merge(this.props, props);
-        done();
+
+        var prompts = [];
+        if (this.props.ui && this.props.providers.indexOf('local') >= 0) {
+          prompts.push({
+            name: 'enableSignup',
+            message: 'User signup with local auth:',
+            type: 'list',
+            choices: [{
+              name: 'Allow user signup',
+              value: true
+            }, {
+              name: 'No user signup',
+              value: false
+            }]
+          });
+        }
+        this.prompt(prompts, function(props){
+          _.merge(this.props, props);
+
+          done();
+        }.bind(this));
       }.bind(this));
 		}.bind(this));
   },
@@ -94,7 +130,6 @@ module.exports = generators.Base.extend({
     if(!pkg) {
       return;
     }
-    console.log(this.props);
 
     // Make a general options object for all pages.
     var folder = _.get(pkg, 'system.directories.lib') || './';
@@ -103,7 +138,6 @@ module.exports = generators.Base.extend({
     };
     _.merge(options, this.props);
 
-    console.log('before app.js');
     if(this.props.appJs) {
       this.fs.copyTpl(
         this.templatePath('app.js'),
@@ -112,15 +146,13 @@ module.exports = generators.Base.extend({
       );
     }
 
-    console.log('before feathers.js');
     this.fs.copyTpl(
       this.templatePath('feathers.js'),
       this.destinationPath(path.join(folder, 'models', 'feathers.js')),
       options
     );
 
-    console.log('before signupModel');
-    if(this.props.signupModel) {
+    if(this.props.enableSignup) {
       this.fs.copyTpl(
         this.templatePath('signupmodel.js'),
         this.destinationPath(path.join(folder, 'models', 'signup.js')),
@@ -128,7 +160,6 @@ module.exports = generators.Base.extend({
       );
     }
 
-    console.log('before sessionModel');
     if(this.props.sessionModel) {
       this.fs.copyTpl(
         this.templatePath('sessionmodel.js'),
@@ -136,8 +167,8 @@ module.exports = generators.Base.extend({
         options
       );
     }
-    console.log('before basic layout');
-    if(this.props.includeBasicLayout) {
+
+    if(this.props.ui) {
       this.fs.copyTpl(
         this.templatePath(path.join('page-dashboard', '**', '*.*')),
         this.destinationPath(path.join(folder, 'components', 'page-dashboard')),
@@ -195,7 +226,7 @@ module.exports = generators.Base.extend({
     if (this.props.framework === 'bootstrap') {
       newDependencies.push('bootstrap');
     }
-    if(this.props.includeBasicLayout) {
+    if(this.props.ui) {
       newDependencies.push('auth-component');
     }
     this.npmInstall(newDependencies, {'save': true});

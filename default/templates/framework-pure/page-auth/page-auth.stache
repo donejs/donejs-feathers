@@ -2,7 +2,16 @@
 <can-import from="<%= pkgName %>/components/main-nav/" />
 
 <main-nav></main-nav>
-<auth-component local <% if(providers.length){ %>providers="<%= providers.join(',') %>"<% } %> >
+<auth-component <%
+  if(providers.indexOf('local') >= 0){ %><%
+    if(enableSignup){
+      %>local<%
+    } else {
+      %>local="login"<%
+    } %><%
+  } else {
+    %> local="false" <%
+  } %> <% if(providers.length){ %>providers="<%= providers.join(',') %>"<% } %> >
   <can-import from="gh-test/img/logo.stache" {^@value}="*logo"/>{{>*logo}}
   <h1>My Awesome Company</h1>
 </auth-component>

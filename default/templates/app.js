@@ -67,7 +67,7 @@ const AppViewModel = Map.extend({
         }
       }
     },
-    <% if(includeBasicLayout){ %>
+    <% if(ui){ %>
     /**
      * The auth page uses the subpage attribute to switch between the 'login'
      * view and the 'signup' view. We have to set serialize to true to allow the
@@ -136,7 +136,7 @@ const AppViewModel = Map.extend({
   }
 });
 
-<% if(includeBasicLayout){ %>
+<% if(ui){ %>
 route('/login', {page: 'auth', subpage: 'login'});
 route('/signup', {page: 'auth', subpage: 'signup'});
 route('/auth/failure', {page: 'auth', subpage: 'failure'});
