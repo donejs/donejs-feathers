@@ -2,10 +2,10 @@
 
 html, body {
   height: 100%;
-  background: url('./img/default-background.jpg');
-  background-size: cover;
 }
 body {
+  background: url('./img/default-background.jpg');
+  background-size: cover;
   font-family: "Helvetica Neue-Light","Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
   font-weight: 300;
 }
@@ -31,3 +31,19 @@ body {
 .text-center {
   text-align: center;
 }
+
+/*!
+ * IE10 viewport hack for Surface/desktop Windows 8 bug
+ * Copyright 2014-2015 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
+
+/*
+ * See the Getting Started docs for more information:
+ * http://getbootstrap.com/getting-started/#support-ie10-width
+ */
+@-webkit-viewport { width: device-width; }
+@-moz-viewport    { width: device-width; }
+@-ms-viewport     { width: device-width; }
+@-o-viewport      { width: device-width; }
+@viewport         { width: device-width; }
