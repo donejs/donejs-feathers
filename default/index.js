@@ -54,6 +54,9 @@ module.exports = generators.Base.extend({
             name: 'Bootstrap',
             value: 'bootstrap'
           }, {
+            name: 'Foundation',
+            value: 'foundation'
+          }, {
             name: 'PureCSS - a tiny css framework',
             value: 'pure'
           }]
@@ -219,11 +222,15 @@ module.exports = generators.Base.extend({
     }
 
     var newDependencies = ['can-connect-feathers'];
-    if (this.props.framework === 'pure') {
-      newDependencies.push('pure-css');
-    }
     if (this.props.framework === 'bootstrap') {
       newDependencies.push('bootstrap');
+    }
+    if (this.props.framework === 'foundation') {
+      newDependencies.push('foundation-sites');
+      newDependencies.push('foundation-apps');
+    }
+    if (this.props.framework === 'pure') {
+      newDependencies.push('pure-css');
     }
     if(this.props.ui) {
       newDependencies.push('auth-component');
