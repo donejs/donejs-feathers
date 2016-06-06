@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="pure-menu pure-menu-horizontal">
+    <a href="{{routeUrl}}" class="pure-menu-heading pure-menu-link brand">
+      <can-import from="gh-test/img/logo.stache" {^@value}="*logo"/>{{>*logo}}
+      My Awesome Company
+    </a>
+    <ul class="pure-menu-list">
+      <!-- <li class="pure-menu-item">
+        <a  class="pure-menu-link">Features</a>
+      </li> -->
+    </ul>
+    <ul class="pure-menu-list menu-right">
+      {{#if session}}
+        <a href="{{routeUrl page='dashboard'}}" class="pure-button pure-button-primary">Open Dashboard</a>
+      {{else}}
+        <li class="pure-menu-item {{#is subpage 'login'}}active{{/is}}">
+          <a href="{{routeUrl page='auth' subpage='login'}}" class="pure-menu-link">Login</a>
+        </li>
+      {{/if}}
+    </ul>
+  </div>
+</div>
