@@ -51,11 +51,11 @@ module.exports = generators.Base.extend({
           type: 'list',
           message: `Select a CSS Framework.`,
           choices: [{
-            name: 'PureCSS - a tiny css framework',
-            value: 'pure'
-          }, {
             name: 'Bootstrap',
             value: 'bootstrap'
+          }, {
+            name: 'PureCSS - a tiny css framework',
+            value: 'pure'
           }]
         });
         prompts.push({
