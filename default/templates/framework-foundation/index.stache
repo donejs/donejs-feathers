@@ -9,12 +9,12 @@
   <body>
     <can-import from="foundation-sites" />
     <can-import from="foundation-sites/dist/foundation.css" />
-    <can-import from="gh-test/styles.less!" />
-    <can-import from="gh-test/app" export-as="viewModel" />
-    <can-import from="gh-test/components/page-home/" />
-    <can-import from="gh-test/components/page-auth/" />
-    <can-import from="gh-test/components/page-dashboard/" />
-    <can-import from="gh-test/components/page-four-oh-four/" />
+    <can-import from="<%= pkgName %>/styles.less!" />
+    <can-import from="<%= pkgName %>/app" export-as="viewModel" />
+    <can-import from="<%= pkgName %>/components/page-home/" />
+    <can-import from="<%= pkgName %>/components/page-auth/" />
+    <can-import from="<%= pkgName %>/components/page-dashboard/" />
+    <can-import from="<%= pkgName %>/components/page-four-oh-four/" />
 
     {{#switch page}}
       {{#case 'home'}}
@@ -33,7 +33,7 @@
 
     {{#switch env.NODE_ENV}}
       {{#case "production"}}
-        <script src="{{joinBase 'node_modules/steal/steal.production.js'}}"  main="gh-test/index.stache!done-autorender"></script>
+        <script src="{{joinBase 'node_modules/steal/steal.production.js'}}"  main="<%= pkgName %>/index.stache!done-autorender"></script>
       {{/case}}
       {{#default}}
         <script src="/node_modules/steal/steal.js"></script>

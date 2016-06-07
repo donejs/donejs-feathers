@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
       </button>
       <a href="{{routeUrl}}" class="navbar-brand">
-        <can-import from="gh-test/img/logo.stache" {^@value}="*logo"/>{{>*logo}}
+        <can-import from="<%= pkgName %>/img/logo.stache" {^@value}="*logo"/>{{>*logo}}
         My Awesome Company
       </a>
     </div>

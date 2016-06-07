@@ -4,7 +4,7 @@
 <div class="container">
   <div class="content pad">
     <div class="text-center">
-      <can-import from="gh-test/img/logo.stache" {^@value}="*logo"/>{{>*logo}}
+      <can-import from="<%= pkgName %>/img/logo.stache" {^@value}="*logo"/>{{>*logo}}
       <h1>My Awesome Company</h1>
     </div>
     <div class="call-to-action text-center">

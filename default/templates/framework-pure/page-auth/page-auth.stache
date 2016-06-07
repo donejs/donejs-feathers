@@ -12,6 +12,6 @@
   } else {
     %> local="false" <%
   } %> <% if(providers.length){ %>providers="<%= providers.join(',') %>"<% } %> >
-  <can-import from="gh-test/img/logo.stache" {^@value}="*logo"/>{{>*logo}}
+  <can-import from="<%= pkgName %>/img/logo.stache" {^@value}="*logo"/>{{>*logo}}
   <h1>My Awesome Company</h1>
 </auth-component>
