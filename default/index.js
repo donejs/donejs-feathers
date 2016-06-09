@@ -163,13 +163,11 @@ module.exports = generators.Base.extend({
       );
     }
 
-    if(this.props.sessionModel) {
-      this.fs.copyTpl(
-        this.templatePath('sessionmodel.js'),
-        this.destinationPath(path.join(folder, 'models', 'session.js')),
-        options
-      );
-    }
+    this.fs.copyTpl(
+      this.templatePath('sessionmodel.js'),
+      this.destinationPath(path.join(folder, 'models', 'session.js')),
+      options
+    );
 
     if(this.props.ui) {
       this.fs.copyTpl(
