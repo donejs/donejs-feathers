@@ -51,6 +51,9 @@ module.exports = generators.Base.extend({
           type: 'list',
           message: `Select a CSS Framework.`,
           choices: [{
+            name: 'Semantic-UI',
+            value: 'semantic-ui'
+          }, {
             name: 'Bootstrap',
             value: 'bootstrap'
           }, {
@@ -136,6 +139,7 @@ module.exports = generators.Base.extend({
 
     // Make a general options object for all pages.
     var folder = _.get(pkg, 'system.directories.lib') || './';
+    var frameworkFolder = `framework-${this.props.framework}`;
     var options = {
       pkgName: pkg.name
     };
@@ -178,7 +182,6 @@ module.exports = generators.Base.extend({
         options
       );
 
-      var frameworkFolder = `framework-${this.props.framework}`;
       this.fs.copyTpl(
         this.templatePath(path.join(frameworkFolder, 'index.stache')),
         this.destinationPath(path.join(folder, 'index.stache')),
@@ -224,6 +227,19 @@ module.exports = generators.Base.extend({
     var newDependencies = ['can-connect-feathers'];
     if (this.props.framework === 'bootstrap') {
       newDependencies.push('bootstrap');
+    }
+    if (this.props.framework === 'semantic-ui') {
+      newDependencies.push('semantic-ui');
+      this.fs.copyTpl(
+        this.templatePath(path.join(frameworkFolder, 'semantic.json')),
+        this.destinationPath(path.join(folder, 'semantic.json')),
+        options
+      );
+      this.fs.copyTpl(
+        this.templatePath(path.join(frameworkFolder, 'semantic', '**', '*.*')),
+        this.destinationPath(path.join(folder, 'semantic')),
+        options
+      );
     }
     if (this.props.framework === 'foundation') {
       newDependencies.push('foundation-sites');

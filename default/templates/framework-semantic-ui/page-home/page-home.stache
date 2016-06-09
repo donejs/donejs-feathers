@@ -1,0 +1,213 @@
+<can-import from="<%= pkgName %>/components/main-nav/" />
+<main-nav></main-nav>
+
+<div class="container">
+
+  <!-- Main component for a primary marketing message or call to action -->
+  <div class="jumbotron">
+    <div class="text-center">
+      <can-import from="<%= pkgName %>/img/logo.stache" {^@value}="*logo"/>{{>*logo}}
+      <h2>My Awesome Company</h2>
+    </div>
+    <div class="call-to-action text-center">
+      <a href="{{routeUrl page='auth' subpage='signup'}}" class="btn btn-lg btn-primary">Signup</a>
+    </div>
+  </div>
+
+  <div class="content docs">
+
+    <h1>Welcome to full-stack DoneJS with Feathers</h1>
+
+    <p><b>tl;dr</b> - Replace the templates and styles of this basic site to jump start development with DoneJS and Feathers. </p>
+
+    <p><a href="http://bitovi.com?ref=donejs-feathers"><img src="/src/img/bitovi-logo.png"/></a> </p>
+
+    <p>If you want your app shipped faster, get in touch with our sponsors at <a href="http://bitovi.com">Bitovi</a>. Bitovi helps companies create better web applications. Get in touch with them about a <a href="http://bitovi.com/design?ref=donejs-feathers">custom design for your app</a>.</p>
+
+    <p>Bitovi can also help if you prefer to <a href="http://themeforest.net/?ref=marshallswain">purchase a pre-made template</a> and have it converted into a DoneJS application. Check out <a href="http://bitovi.com/development?ref=donejs-feathers">other development services</a> offered by Bitovi.</p>
+
+    <h2>Getting Started with the Site Template</h2>
+
+    <p>You have a great idea to build something awesome, but it&#39;s easy to lose focus when facing the endless choices that come with implementing best practices. You want your app to be fast, secure, and easy to maintain. We want to help you get started faster. Use this basic site to start working sooner on the best part of your app - <strong>the actual app</strong>.</p>
+
+    <h3>The File Structure</h3>
+
+    <p>The entire application structure is held within the <code>src/</code> folder. Let’s review its contents.</p>
+
+    <ul class="folder-structure">
+      <li><code>components/</code> - in this folder you’ll find the four main components, which are organized using the <a href="http://blog.bitovi.com/modlet-workflows/">modlet</a> pattern:
+
+        <ul>
+          <li><code>page-home/</code> - the home page (this page)</li>
+          <li><code>page-auth/</code> - which handles both the <code>/login</code> and <code>/signup</code> routes.</li>
+          <li><code>page-four-oh-four/</code> - the 404 page.</li>
+          <li><code>page-dashboard/</code> - which is a placeholder component as a starting place for your app.</li>
+          <li><code>main-nav/</code> - The toolbar at the top of the home and auth pages.</li>
+        </ul></li>
+      <li><code>img/</code> - contains the background and logo images.</li>
+      <li><code>less/</code> - is the place for additional global styles that deserve their own file. It currently contains responsive layout styles in <code>breakpoints.less</code>.</li>
+      <li><code>models/</code> - contains model definitions that help talk to the Feathers server.
+        <ul>
+          <li><code>feathers.js</code> - defines the connection to one or more Feathers servers.</li>
+          <li><code>session.js</code> - assists with logging the user in.</li>
+          <li><code>signup.js</code> - helps sign up new users.</li>
+          <li><code>fixtures/</code> - this is where you put <a href="https://github.com/canjs/can-fixture">can-fixture</a> files for setting up mock services.</li>
+        </ul></li>
+      <li><code>test/</code> - contains application-level tests and imports other modules tests so they can all be run at together.</li>
+      <li><code>app.js</code> - contains the main application state and the routing definitions.</li>
+      <li><code>index.stache</code> - is the main entry point of the application. It’s equivalent to a typical index.html file, but uses the <a href="https://canjs.com/docs/can.stache.html">Stache</a> templating engine. The <code>&#123;&#123;#switch page&#125&#125</code> block controls which of the page-components is visible based on the value of the <code>page</code> attribute in the application state.</li>
+      <li><code>styles.less</code> - contains the primary, global styles for the application.</li>
+    </ul>
+
+    <h3>Customizing the Pages</h3>
+
+    <p>To customize a page, you only need to edit the <code>stache</code> template and <code>less</code> styles in the corresponding component folder.</p>
+
+    <h3>Removing the Home page</h3>
+
+    <p>If your application's home page is hosted on another server, you might want to remove the home page from the app. Here are the changes you’ll need to make:</p>
+
+    <ol>
+    	<li>Make the auth page the default page by changing the <code>routePage</code> function in <code>app.js</code>. Change <code>val = &#39;home&#39;</code> to <code>val=&#39;auth&#39;</code>.</li>
+    	<li>Remove three lines starting with <code>&#123;&#123;#case &#39;home&#39;&#125&#125</code>.</li>
+    	<li>Delete the <code>components/page-home/</code> folder.</li>
+    </ol>
+
+    <h3>Adding another page</h3>
+
+    <p>If you want additional pages in your app, you’ll need to do the following.</p>
+
+    <ol>
+    	<li>Use the DoneJS generator to create the page’s component modlet: <code>donejs add component components/page-about page-about</code></li>
+    	<li>Edit <code>app.js</code>. Add the proper permissions to the <code>pagePermissions</code> object inside the <code>routePage</code> function.</li>
+    	<li>Edit <code>index.stache</code>. Add a can-import tag: <code>&lt;can-import from=&quot;app-name/components/page-about&quot; /&gt;</code> Then add a <code>&#123;&#123;#case &#39;about&#39;&#125&#125</code> block to the <code>&#123;&#123;#switch page&#125&#125</code> statement: </li>
+    </ol>
+
+<pre><code>&#123;&#123;#case &#39;about&#39;&#125&#125
+  &lt;page-about&gt;&lt;/page-about&gt;
+&#123;&#123;/case&#125&#125
+</code></pre>
+
+    <h3>Creating more complex permissions</h3>
+
+    <p>The <code>routePage</code> function in the <code>app.js</code> file might not be flexible enough for your use case. As with the rest of the site files, feel free to change the code to suit your needs. Just keep in mind that the SSR server needs to use the asynchronous setter <code>setVal(val)</code>, and the client will use the returned value. That’s why you see both of those at the bottom of the <code>routePage</code> function:</p>
+
+<pre><code>if (setVal) {
+  setVal(val);
+}
+return val;
+</code></pre>
+
+    <p>Depending on how complex your business logic is, you may need to also modify the <code>session</code> attribute in that same file.</p>
+
+    <h3>Authentication</h3>
+
+    <p>The auth page is configured to show with the <code>/login</code> route and (if you opted to allow signup) the <code>/signup</code> route:</p>
+
+<pre><code>route(&#39;login&#39;, {page: &#39;auth&#39;, subpage: &#39;login&#39;});
+route(&#39;signup&#39;, {page: &#39;auth&#39;, subpage: &#39;signup&#39;});
+</code></pre>
+
+    <h4>Customize the order of login buttons</h4>
+
+    <p>If you selected any login providers, you can customize the order they appear in the auth-component by changing the order that they appear in the providers attribute. For example, <code>&lt;auth-component providers="github,facebook"></code> will show the GitHub button before the one for Facebook.</p>
+
+    <h4>Preparing for OAuth login</h4>
+
+    <p>The <code>feathers-authentication</code> plugin includes the ability to login using OAuth providers like Facebook, GitHub, and more.  OAuth involves redirecting the browser to the login provider, where the user will authorize (or decline authorization to) your app.  Upon authorization by the user, the login provider will redirect back to a specific page in your app.</p>
+
+    <p>Feathers provides its own success/failure pages, server side, but we want to disable them so we can handle everything in our client-side code.  To do this, we need to modify the environment configuration in the <code>config/</code> folder on the Feathers server.  It needs to include the first four attributes under <code>"auth"</code> in this example:</p>
+
+<pre><code>// config/default.json on the server
+{
+  "host": "localhost",
+  "port": 3030,
+  "nedb": "../data/",
+  "public": "../public/",
+  "auth": {
+
+    "shouldSetupSuccessRoute": false,
+    "shouldSetupFailureRoute": false,
+    "successRedirect": "/dashboard",
+    "failureRedirect": "/auth/failure",
+
+    "token": {
+      "secret": "FEATHERS_AUTH_SECRET"
+    },
+    "local": {},
+    "github": {
+      "clientID": "your github client id",
+      "clientSecret": "your github client secret",
+      "permissions": {
+        "scope": []
+      }
+    }
+  }
+}
+</code></pre>
+
+    <p>Now, when the user successfully logs in through any OAuth provider, they will be redirected to the <code>/dashboard</code> page.  Failed OAuth logins will go to <code>/auth/failure</code>.  Remember that you'll need to update the config for every environment where you plan to deploy.</p>
+
+    <!-- <h4>Gathering additional data from the user</h4> -->
+
+    <!-- <p>When a user successfully logs in with an OAuth provider, their user record in the database is updated with information sent from the login provider.  In the above example, the user will have a <code>github</code> attribute with the additional data that GitHub provided.  But what if the information that you get from the login provider isn't enough for your app's requirements?  Check out <a href="">this tutorial for a solution.</a></p> -->
+
+    <!-- <h3>Understanding how Auth works with Server Side Rendering</h3> -->
+
+    <h3>Running without a Feathers server</h3>
+
+    <p>If you haven&#39;t started development on your Feathers server, yet, you&#39;ll need to setup a fixture for the request to the /auth/token endpoint. If not, the page will load very slowly. </p>
+
+    <ol>
+    	<li>Add the following lines to the <code>/models/fixtures/fixtures.js</code> file:
+
+<pre><code>fixture(&quot;POST /auth/token&quot;, function(){
+  return {token: &quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNDU2Nzg5MCwiX2lkIjoxMjM0NTY3ODkwLCJleHAiOjI5OTk5OTk5OTl9.QzMHMNufWOf1hvI9EixhtS1ckFNFYV_cV6Lfp7iCgt4&quot;};
+});
+</code></pre>
+
+        <p>This will create a mock response with a fake token, which will simulate a logged-in user. You can create your own, custom JWT object by going to <a href="https://jwt.io">jwt.io</a> and customizing the payload data. At a minimum, you’ll need the following keys in your data:</p>
+
+<pre><code>{
+  &quot;id&quot;: 123,
+  &quot;_id&quot;: 123,
+  &quot;exp&quot;: 2999999999
+}
+</code></pre>
+
+        <p>Note that in the above payload data, the <code>exp</code> attribute represents the actual date when you want the token to expire. <code>new Date(exp * 1000)</code>. Also, whether you use <code>id</code> or <code>_id</code>, the property should match what you specified in the donejs-feathers generator.</p>
+
+        <p>Alternatively, simulate a failed login by returning an error in the fixture function instead of an object.</p>
+      </li>
+
+    	<li>Now, add an import statement to the top of <code>app.js</code> to load the fixtures: <code>import &#39;app-name/models/fixtures/&#39;;</code></li>
+    </ol>
+
+    <h2>Getting Help</h2>
+
+    <p><strong>DoneJS Resources</strong></p>
+    <ul>
+    	<li>Read through the examples and docs on <a href="https://donejs.com/index.html">donejs.com</a>.</li>
+    	<li>Visit the <a href="https://gitter.im/donejs/donejs">DoneJS room on Gitter</a>.</li>
+    	<li>File an issue on <a href="https://github.com/donejs/donejs/issues">GitHub</a>. Before you file an issue, please check with us in the Gitter chat room. Since DoneJS comprises a lot of smaller modules, we can point you to the right repo.</li>
+    </ul>
+
+    <p><strong>FeathersJS Resources</strong></p>
+    <ul>
+    	<li>Read the <a href="docs.feathersjs.com">Feathers Book</a></li>
+    	<li>Join the <a href="http://slack.feathersjs.com/">Feathers Slack</a></li>
+    	<li>File an issue on <a href="https://github.com/feathersjs/feathers/issues">GitHub</a>. Feathers is also very modular, so you might want to check in slack for the appropriate repo for your particular issue.</li>
+    </ul>
+
+    <p><strong>Bootstrap Resources</strong></p>
+    <ul>
+      <li>Read the <a href="http://getbootstrap.com">PureCSS docs</a></li>
+      <li>Check out <a href="http://getbootstrap.com/getting-started/#examples">example layouts</a></li>
+    </ul>
+
+    <p>Desk background photo by <a href="https://unsplash.com/@dustinlee" target="_blank">unsplash.com/@dustinlee</a></p>
+
+  </div>
+
+
+</div>

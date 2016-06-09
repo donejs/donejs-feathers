@@ -28,6 +28,7 @@ Choose the `Full site layout` option to create a basic application with a popula
 
 For the full-site solution, the following CSS frameworks are supported:
 
+ * Semantic UI - [semantic-ui.com](http://semantic-ui.com/)
  * Bootstrap 3 - [getbootstrap.com](http://getbootstrap.com/)
  * Foundation - [foundation.zurb.com](http://foundation.zurb.com/)
  * Pure - [purecss.io](http://purecss.io)
