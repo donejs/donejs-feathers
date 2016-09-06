@@ -219,7 +219,24 @@ module.exports = generators.Base.extend({
       );
     }
 
-    var newDependencies = ['can-connect-feathers'];
+    var newDependencies = [
+      'can-connect-feathers',
+      'can-component@3.0.0-pre.15',
+      'can-connect@0.6.0-pre.19',
+      'can-define@0.7.27',
+      'can-route@3.0.0-pre.13',
+      'can-route-pushstate@3.0.0-pre.6',
+      'can-stache@3.0.0-pre.18',
+      'can-view-autorender@3.0.0-pre.4',
+      'can-zone@0.5.8',
+      'done-autorender@0.9.0-pre.1',
+      'done-component@0.6.0-pre.2',
+      'done-css@2.1.0-pre.0',
+      'done-serve@0.3.0-pre.0',
+      'generator-donejs@0.10.0-pre.0',
+      'steal@0.16.35',
+      'steal-stache@3.0.0-pre.3'
+    ];
     if (this.props.framework === 'bootstrap') {
       newDependencies.push('bootstrap');
     }
@@ -234,6 +251,12 @@ module.exports = generators.Base.extend({
       newDependencies.push('auth-component');
     }
     this.npmInstall(newDependencies, {'save': true});
+
+    var newDevDeps = [
+      'donejs-cli@0.10.0-pre.0',
+      'can-fixture@0.4.0-pre.12'
+    ];
+    this.npmInstall(newDevDeps, {'saveDev': true});
 
     done();
   }
