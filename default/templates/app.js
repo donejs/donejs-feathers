@@ -1,89 +1,86 @@
 /* global window */
 import $ from 'jquery';
-import Map from 'can/map/';
+import DefineMap from 'can-define/map/';
 import route from 'can/route/';
-import 'can/map/define/';
 import 'can/route/pushstate/';
 import Session from '<%= pkgName %>/models/session';
 import feathers from '<%= pkgName %>/models/feathers';
 
-const AppViewModel = Map.extend({
-  define: {
+const AppViewModel = DefineMap.extend({
 
-    /**
-     * By default, viewModel attributes will not be serialized into the URL as
-     * route attributes.
-     */
-    '*': {
-      serialize: false
-    },
+  /**
+   * By default, viewModel attributes will not be serialized into the URL as
+   * route attributes.
+   */
+  '*': {
+    serialize: false
+  },
 
-    /**
-     * The `sessionPromise` is needed on the SSR server to see if the current user
-     * is authenticated before rendering.
-     */
-    sessionPromise: {
-      value(){
-        return new Session().save();
+  /**
+   * The `sessionPromise` is needed on the SSR server to see if the current user
+   * is authenticated before rendering.
+   */
+  sessionPromise: {
+    value(){
+      return new Session().save();
+    }
+  },
+
+  /**
+   * Uses whatever session data is available from Feathers JWT token, if
+   * available. Because the token data is usually limited, a request is sent
+   * to obtain the full session data.
+   */
+  session: {
+    value() {
+      this.attr('sessionPromise').then(response => {
+        this.attr('session', response);
+        return response;
+      });
+      let session = feathers.getSession();
+      if (session) {
+        session = new Session(session);
       }
-    },
+      return session;
+    }
+  },
 
-    /**
-     * Uses whatever session data is available from Feathers JWT token, if
-     * available. Because the token data is usually limited, a request is sent
-     * to obtain the full session data.
-     */
-    session: {
-      value() {
-        this.attr('sessionPromise').then(response => {
-          this.attr('session', response);
-          return response;
-        });
-        let session = feathers.getSession();
-        if (session) {
-          session = new Session(session);
-        }
-        return session;
-      }
-    },
-
-    /**
-     * The `page` attribute determines which page-component is displayed. When
-     * loaded by the SSR server, it waits for the request to the session to resolve
-     * before calling `routePage()` to run the auth-based page rules.  In the
-     * browser, it can run synchronously.
-     */
-    page: {
-      serialize: true,
-      get(page, setPage){
-        if (page) {
-          if (window.doneSsr) {
-            this.attr('sessionPromise')
-            .then(() => this.routePage(page, setPage))
-            .catch(() => this.routePage(page, setPage));
-          } else {
-            return this.routePage(page);
-          }
+  /**
+   * The `page` attribute determines which page-component is displayed. When
+   * loaded by the SSR server, it waits for the request to the session to resolve
+   * before calling `routePage()` to run the auth-based page rules.  In the
+   * browser, it can run synchronously.
+   */
+  page: {
+    serialize: true,
+    get(page, setPage){
+      if (page) {
+        if (window.doneSsr) {
+          this.attr('sessionPromise')
+          .then(() => this.routePage(page, setPage))
+          .catch(() => this.routePage(page, setPage));
+        } else {
+          return this.routePage(page);
         }
       }
-    },
-    <% if(ui){ %>
-    /**
-     * The auth page uses the subpage attribute to switch between the 'login'
-     * view and the 'signup' view. We have to set serialize to true to allow the
-     * auth routes, below, to work.
-     */
-    subpage: {
-      serialize: true
-    },
-    <% } %>
-    /**
-     * The `title` attribute is used in index.stache as the HTML title.
-     */
-    title: {
-      value(){
-        return 'My DoneJS App';
-      }
+    }
+  },
+  <% if(ui){ %>
+  /**
+   * The auth page uses the subpage attribute to switch between the 'login'
+   * view and the 'signup' view. We have to set serialize to true to allow the
+   * auth routes, below, to work.
+   */
+  subpage: {
+    serialize: true
+  },
+  <% } %>
+  /**
+   * The `title` attribute is used in index.stache as the HTML title.
+   */
+  title: {
+    value(){
+      return 'My DoneJS App';
     }
   },
 
@@ -126,7 +123,7 @@ const AppViewModel = Map.extend({
 
   /**
    * Logs the user out by destroying the session, which disposes of the JWT token.
-   * It also clears the localStorage to clear the caches used by can-connect.
+   * It also clears localStorage to clear the caches used by can-connect.
    */
   logout() {
     this.attr('session').destroy().then(() => {
