@@ -101,6 +101,11 @@ module.exports = generators.Base.extend({
       }
 
       this.prompt(prompts, function(props){
+        if (props.setup) {
+          props.appJs = props.setup.indexOf('appJs') >= 0;
+          props.enableSignup = props.setup.indexOf('enableSignup') >= 0;
+          props.sessionModel = props.setup.indexOf('sessionModel') >= 0;
+        }
         _.merge(this.props, props);
 
         var prompts = [];
