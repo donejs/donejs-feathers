@@ -253,8 +253,9 @@ module.exports = generators.Base.extend({
     this.npmInstall(newDependencies, {'save': true});
 
     var newDevDeps = [
+      'can-fixture@0.4.0-pre.12',
       'donejs-cli@0.10.0-pre.0',
-      'can-fixture@0.4.0-pre.12'
+      'steal-tools@0.16.8'
     ];
     this.npmInstall(newDevDeps, {'saveDev': true});
 
