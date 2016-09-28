@@ -1,4 +1,6 @@
 <can-import from="<%= pkgName %>/components/main-nav/" />
+<can-import from="can-stache/helpers/route" />
+
 <main-nav></main-nav>
 
 <div class="container">

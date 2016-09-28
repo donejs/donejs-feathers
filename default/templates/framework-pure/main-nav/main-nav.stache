@@ -1,3 +1,5 @@
+<can-import from="can-stache/helpers/route" />
+
 <div class="container">
   <div class="pure-menu pure-menu-horizontal">
     <a href="{{routeUrl}}" class="pure-menu-heading pure-menu-link brand">

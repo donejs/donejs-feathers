@@ -30,7 +30,9 @@ var behaviors = [
 export const Session = DefineMap.extend('Session', {
   _id: '*',
   email: 'string',
-  password: 'string'
+  password: 'string',
+  data: '*',
+  token: 'string'
 });
 
 Session.List = DefineList.extend({

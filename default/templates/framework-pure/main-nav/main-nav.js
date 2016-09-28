@@ -1,19 +1,16 @@
-import Component from 'can/component/';
-import Map from 'can/map/';
-import 'can/map/define/';
+import Component from 'can-component';
+import DefineMap from 'can-define/map/';
 import './main-nav.less!';
 import template from './main-nav.stache!';
 
-export const ViewModel = Map.extend({
-  define: {
-    message: {
-      value: 'This is the main-nav component'
-    }
+export const ViewModel = DefineMap.extend({
+  message: {
+    value: 'This is the main-nav component'
   }
 });
 
 export default Component.extend({
   tag: 'main-nav',
-  viewModel: ViewModel,
+  ViewModel,
   template
 });

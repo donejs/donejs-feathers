@@ -1,4 +1,5 @@
 <can-import from="<%= pkgName %>/components/main-nav/" />
+
 <main-nav></main-nav>
 
 <div class="four-oh-four">

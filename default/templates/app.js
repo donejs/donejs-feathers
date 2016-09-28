@@ -1,8 +1,8 @@
 /* global window */
 import $ from 'jquery';
 import DefineMap from 'can-define/map/';
-import route from 'can/route/';
-import 'can/route/pushstate/';
+import route from 'can-route';
+import 'can-route-pushstate';
 import Session from '<%= pkgName %>/models/session';
 import feathers from '<%= pkgName %>/models/feathers';
 
@@ -16,6 +16,20 @@ const AppViewModel = DefineMap.extend({
     serialize: false
   },
 
+  /**
+   * Needed for routing to work.
+   */
+  route: '*',
+  <% if(!ui){ %>
+  /**
+   * Test message to make sure something still renders
+   * @type {Object}
+   */
+  message: {
+    type: 'string',
+    value: 'Hello, Feathers!'
+  },
+  <% } %>
   /**
    * The `sessionPromise` is needed on the SSR server to see if the current user
    * is authenticated before rendering.
@@ -33,8 +47,8 @@ const AppViewModel = DefineMap.extend({
    */
   session: {
     value() {
-      this.attr('sessionPromise').then(response => {
-        this.attr('session', response);
+      this.sessionPromise.then(response => {
+        this.session = response;
         return response;
       });
       let session = feathers.getSession();
@@ -56,7 +70,7 @@ const AppViewModel = DefineMap.extend({
     get(page, setPage){
       if (page) {
         if (window.doneSsr) {
-          this.attr('sessionPromise')
+          this.sessionPromise
           .then(() => this.routePage(page, setPage))
           .catch(() => this.routePage(page, setPage));
         } else {
@@ -90,7 +104,7 @@ const AppViewModel = DefineMap.extend({
    * shown the login page. Also handles 404s.
    */
    routePage: function(page, setPage){
-     let session = this.attr('session');
+     let session = this.session;
      let pageConfig = {
        home: 'public',
        auth: 'public',
@@ -126,7 +140,7 @@ const AppViewModel = DefineMap.extend({
    * It also clears localStorage to clear the caches used by can-connect.
    */
   logout() {
-    this.attr('session').destroy().then(() => {
+    this.session.destroy().then(() => {
       window.localStorage.clear();
       window.location.pathname = '/';
     });

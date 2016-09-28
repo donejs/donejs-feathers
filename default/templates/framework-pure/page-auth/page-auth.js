@@ -1,10 +1,9 @@
-import Component from 'can/component/';
-import Map from 'can/map/';
-import 'can/map/define/';
+import Component from 'can-component';
+import DefineMap from 'can-define/map/';
 import './page-auth.less!';
 import template from './page-auth.stache!';
 
-export const ViewModel = Map.extend({
+export const ViewModel = DefineMap.extend({
   define: {
     subpage: { }, // Passed in from AppState.
     isOAuthRoute: {
@@ -18,7 +17,6 @@ export const ViewModel = Map.extend({
 
 export default Component.extend({
   tag: 'page-auth',
-  viewModel: ViewModel,
-  template,
-  leakScope: true
+  ViewModel,
+  template
 });

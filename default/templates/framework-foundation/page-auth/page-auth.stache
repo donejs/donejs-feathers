@@ -1,7 +1,9 @@
 <can-import from="auth-component" />
 <can-import from="<%= pkgName %>/components/main-nav/" />
+<can-import from="can-stache/helpers/route" />
 
 <main-nav></main-nav>
+
 <auth-component <%
   if(providers.indexOf('local') >= 0){ %><%
     if(enableSignup){
