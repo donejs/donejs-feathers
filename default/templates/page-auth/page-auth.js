@@ -4,13 +4,10 @@ import './page-auth.less!';
 import template from './page-auth.stache!';
 
 export const ViewModel = DefineMap.extend({
-  define: {
-    subpage: { }, // Passed in from AppState.
-    isOAuthRoute: {
-      get(){
-        let subpage = this.attr('subpage');
-        return subpage === 'success' || subpage === 'failure';
-      }
+  authTab: {}, // bound to the subpage in the AppState.
+  isOAuthRoute: {
+    get(){
+      return this.subpage === 'success' || this.subpage === 'failure';
     }
   }
 });

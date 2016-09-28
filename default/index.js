@@ -193,7 +193,7 @@ module.exports = generators.Base.extend({
         options
       );
       this.fs.copyTpl(
-        this.templatePath(path.join(frameworkFolder, 'page-auth', '**', '*.*')),
+        this.templatePath(path.join('page-auth', '**', '*.*')),
         this.destinationPath(path.join(folder, 'components', 'page-auth')),
         options
       );
@@ -208,7 +208,7 @@ module.exports = generators.Base.extend({
         options
       );
       this.fs.copyTpl(
-        this.templatePath(path.join(frameworkFolder, 'page-four-oh-four', '**', '*.*')),
+        this.templatePath(path.join('page-four-oh-four', '**', '*.*')),
         this.destinationPath(path.join(folder, 'components', 'page-four-oh-four')),
         options
       );

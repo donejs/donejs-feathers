@@ -1,19 +1,17 @@
 <can-import from="auth-component" />
 <can-import from="<%= pkgName %>/components/main-nav/" />
-<can-import from="can-stache/helpers/route" />
+<can-import from="can-stache/helpers/route" /><% if(providers.includes('local')){ %>
+<can-import from="<%= pkgName %>/models/session" {^@value}="*Session"/><% } %>
 
 <main-nav></main-nav>
 
 <auth-component <%
-  if(providers.indexOf('local') >= 0){ %><%
+  if(providers.includes('local')){ %>local="password"<%
     if(enableSignup){
-      %>local<%
-    } else {
-      %>local="login"<%
-    } %><%
-  } else {
-    %> local="false" <%
-  } %> <%
+      %> local-signup="true"<%
+    }
+    %> session-model="@*Session.default"<%    
+  } %><%
   if(feathersUrl !== ''){
     %>base-url="<%= feathersUrl %>"<%
   } %> <%
