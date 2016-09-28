@@ -11,10 +11,13 @@
     <can-import from="bootstrap/dist/css/bootstrap.css" />
     <can-import from="<%= pkgName %>/styles.less!" />
     <can-import from="<%= pkgName %>/app" export-as="viewModel" />
+    <can-import from="<%= pkgName %>/components/main-nav/" />
     <can-import from="<%= pkgName %>/components/page-home/" />
     <can-import from="<%= pkgName %>/components/page-auth/" />
     <can-import from="<%= pkgName %>/components/page-dashboard/" />
     <can-import from="<%= pkgName %>/components/page-four-oh-four/" />
+
+    <main-nav {(page)}="page"></main-nav>
 
     {{#switch page}}
       {{#case 'home'}}
