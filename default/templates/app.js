@@ -42,7 +42,7 @@ const AppViewModel = DefineMap.extend({
 
   /**
    * Uses whatever session data is available from Feathers JWT token, if
-   * available. Because the token data is usually limited, a request is sent
+   * available. Because the token data is limited, a request is sent
    * to obtain the full session data.
    */
   session: {
@@ -68,15 +68,7 @@ const AppViewModel = DefineMap.extend({
   page: {
     serialize: true,
     get(page, setPage){
-      if (page) {
-        if (window.doneSsr) {
-          this.sessionPromise
-          .then(() => this.routePage(page, setPage))
-          .catch(() => this.routePage(page, setPage));
-        } else {
-          return this.routePage(page);
-        }
-      }
+      return this.routePage(page);
     }
   },
   <% if(ui){ %>
@@ -94,7 +86,7 @@ const AppViewModel = DefineMap.extend({
    */
   title: {
     value(){
-      return 'My DoneJS App';
+      return '<%= pkgName %>';
     }
   },
 
