@@ -1,5 +1,4 @@
 /* global window */
-import $ from 'jquery';
 import DefineMap from 'can-define/map/';
 import route from 'can-route';
 import 'can-route-pushstate';
@@ -134,8 +133,8 @@ const AppViewModel = DefineMap.extend({
 });
 
 <% if(ui){ %>
-route('/login', {page: 'auth', subpage: 'login'}); %><% if(ui && enableSignup){ %>
-route('/signup', {page: 'auth', subpage: 'signup'}); %><% if(ui){ %>
+route('/login', {page: 'auth', subpage: 'login'}); <% } if(ui && enableSignup){ %>
+route('/signup', {page: 'auth', subpage: 'signup'}); <% } if(ui){ %>
 route('/auth/failure', {page: 'auth', subpage: 'failure'});
 <% }%>route('/:page', {page: 'home'});
 
