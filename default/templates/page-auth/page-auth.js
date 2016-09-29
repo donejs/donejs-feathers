@@ -3,11 +3,12 @@ import DefineMap from 'can-define/map/';
 import './page-auth.less!';
 import template from './page-auth.stache!';
 
-export const ViewModel = DefineMap.extend({
+export const ViewModel = DefineMap.extend({<% if(enableSignup){ %>
   authTab: {}, // bound to the subpage in the AppState.
-  isOAuthRoute: {
+<% } %><% if(providers.includes('local')){ %>  session: '*',
+<% } %>  isOAuthRoute: {
     get(){
-      return this.subpage === 'success' || this.subpage === 'failure';
+      return this.authTab === 'success' || this.authTab === 'failure';
     }
   }
 });

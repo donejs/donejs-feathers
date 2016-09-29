@@ -2,19 +2,15 @@
 <can-import from="can-stache/helpers/route" /><% if(providers.includes('local')){ %>
 <can-import from="<%= pkgName %>/models/session" {^@value}="*Session"/><% } %>
 
-<auth-component <%
-  if(providers.includes('local')){ %>local="password"<%
-    if(enableSignup){
-      %> local-signup="true"<%
-    }
-    %> session-model="@*Session.default"<%    
-  } %><%
-  if(feathersUrl !== ''){
-    %>base-url="<%= feathersUrl %>"<%
-  } %> <%
-  if(providers.length){
-    %>providers="<%= providers.join(',') %>"<%
-  } %> >
+<auth-component <% if(providers.includes('local')){ %>local="password"<%
+  if(enableSignup){ %> 
+    local-signup="true"
+    {(active-tab)}="authTab"<% } %>
+    session-model="@*Session.default"<% } %><%
+  if(feathersUrl !== ''){ %>
+    base-url="<%= feathersUrl %>"<% } %><%
+  if(providers.length){ %>
+    providers="<%= providers.join(',') %>"<% } %>>
   <can-import from="<%= pkgName %>/img/logo.stache" {^@value}="*logo"/>{{>*logo}}
   <h1>My Awesome Company</h1>
 </auth-component>
