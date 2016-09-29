@@ -12,7 +12,7 @@ const feathers = new Feathers({
   // The endpoint for username/password authentication.
   localEndpoint: 'auth/local',
   // Set to false to disable socketio and force any socketio services to switch to rest.
-  allowSocketIO: false
+  allowSocketIO: true
 });
 
 export default feathers;
