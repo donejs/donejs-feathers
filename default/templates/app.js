@@ -60,10 +60,7 @@ const AppViewModel = DefineMap.extend({
   },
 
   /**
-   * The `page` attribute determines which page-component is displayed. When
-   * loaded by the SSR server, it waits for the request to the session to resolve
-   * before calling `routePage()` to run the auth-based page rules.  In the
-   * browser, it can run synchronously.
+   * The `page` attribute determines which page-component is displayed.
    */
   page: {
     serialize: true,
@@ -95,7 +92,7 @@ const AppViewModel = DefineMap.extend({
    * If a non-authenticated user tries to access a private page, they will be
    * shown the login page. Also handles 404s.
    */
-   routePage: function(page, setPage){
+   routePage: function(page){
      let session = this.session;
      let pageConfig = {
        home: 'public',
@@ -121,9 +118,6 @@ const AppViewModel = DefineMap.extend({
        page = 'four-oh-four';
      }
 
-     if (window.doneSsr && setPage) {
-       setPage(page);
-     }
      return page;
    },
 
