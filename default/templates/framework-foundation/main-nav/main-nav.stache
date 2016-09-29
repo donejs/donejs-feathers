@@ -10,7 +10,7 @@
             My Awesome Company
           </a>
         </li>
-        <li role="menuitem" tabindex="0"><a href="{{routeUrl}}">Home</a></li>
+        <li {{#routeCurrent page="home"}}class="active"{{/routeCurrent}} role="menuitem" tabindex="0"><a href="{{routeUrl}}">Home</a></li>
         <!-- <li class="has-submenu is-dropdown-submenu-parent is-down-arrow" role="menuitem" tabindex="0" title="One" aria-haspopup="true">
           <a href="#" tabindex="-1">One</a>
           <ul class="submenu menu vertical is-dropdown-submenu first-sub" data-submenu="" aria-hidden="true" tabindex="-1" role="menu">
@@ -28,7 +28,7 @@
         <!-- <li> <input type="search" placeholder="Search"> </li>
         <li> <button type="button" class="button">Search</button> </li> -->
         {{#if session}}
-          <li><a role="menuitem" tabindex="0" href="{{routeUrl page='dashboard'}}" class="">Open Dashboard</a></li>
+          <li {{#routeCurrent page="dashboard"}}class="active"{{/routeCurrent}}><a role="menuitem" tabindex="0" href="{{routeUrl page='dashboard'}}" class="">Dashboard</a></li>
         {{else}}
           <li class="{{#is subpage 'login'}}active{{/is}}">
             <a href="{{routeUrl page='auth' subpage='login'}}" class="">Login</a>

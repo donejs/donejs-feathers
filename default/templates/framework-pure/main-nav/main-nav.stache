@@ -7,13 +7,13 @@
       My Awesome Company
     </a>
     <ul class="pure-menu-list">
-      <!-- <li class="pure-menu-item">
-        <a  class="pure-menu-link">Features</a>
-      </li> -->
+      <li class="pure-menu-item {{#routeCurrent page="home"}}active{{/routeCurrent}}">
+        <a href="{{routeUrl page='home'}}" class="pure-menu-link">Home</a>
+      </li>
     </ul>
     <ul class="pure-menu-list menu-right">
       {{#if session}}
-        <a href="{{routeUrl page='dashboard'}}" class="pure-button pure-button-primary">Open Dashboard</a>
+        <a href="{{routeUrl page='dashboard'}}" class="pure-button pure-button-primary {{#routeCurrent page="dashboard"}}active{{/routeCurrent}}">Dashboard</a>
       {{else}}
         <li class="pure-menu-item {{#is subpage 'login'}}active{{/is}}">
           <a href="{{routeUrl page='auth' subpage='login'}}" class="pure-menu-link">Login</a>
