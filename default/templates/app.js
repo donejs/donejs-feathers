@@ -29,15 +29,6 @@ const AppViewModel = DefineMap.extend({
     value: 'Hello, Feathers!'
   },
   <% } %>
-  /**
-   * The `sessionPromise` is needed on the SSR server to see if the current user
-   * is authenticated before rendering.
-   */
-  sessionPromise: {
-    value(){
-      return new Session().save();
-    }
-  },
 
   /**
    * Uses whatever session data is available from Feathers JWT token, if
@@ -46,10 +37,14 @@ const AppViewModel = DefineMap.extend({
    */
   session: {
     value() {
-      this.sessionPromise.then(response => {
-        this.session = response;
-        return response;
-      });
+      // Refresh the token only on the client.
+      // TODO: Move this somewhere else. 
+      if(!window.doneSsr){
+        new Session().save().then(response => {
+          this.session = response;
+          return response;
+        });
+      }
       let session = feathers.getSession();
       if (session) {
         session = new Session(session);
