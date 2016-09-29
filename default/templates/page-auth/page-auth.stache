@@ -6,7 +6,7 @@
   if(enableSignup){ %> 
     local-signup="true"
     {(active-tab)}="authTab"<% } %>
-    session-model="@*Session.default"<% } %><%
+    {session-model}="@*Session.default"<% } %><%
   if(feathersUrl !== ''){ %>
     base-url="<%= feathersUrl %>"<% } %><%
   if(providers.length){ %>
