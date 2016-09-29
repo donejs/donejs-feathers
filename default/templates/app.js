@@ -74,8 +74,8 @@ const AppViewModel = DefineMap.extend({
   <% if(ui){ %>
   /**
    * The auth page uses the subpage attribute to switch between the 'login'
-   * view and the 'signup' view. We have to set serialize to true to allow the
-   * auth routes, below, to work.
+   * view<% if(signupEnabled) { %> and the 'signup' view<% } %>. We have to set serialize to true to allow the
+   * auth routes to work.
    */
   subpage: {
     serialize: true
@@ -140,8 +140,8 @@ const AppViewModel = DefineMap.extend({
 });
 
 <% if(ui){ %>
-route('/login', {page: 'auth', subpage: 'login'});
-route('/signup', {page: 'auth', subpage: 'signup'});
+route('/login', {page: 'auth', subpage: 'login'}); %><% if(ui && enableSignup){ %>
+route('/signup', {page: 'auth', subpage: 'signup'}); %><% if(ui){ %>
 route('/auth/failure', {page: 'auth', subpage: 'failure'});
 <% }%>route('/:page', {page: 'home'});
 
