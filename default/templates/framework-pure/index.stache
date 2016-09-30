@@ -10,10 +10,13 @@
     <can-import from="pure-css" />
     <can-import from="<%= pkgName %>/styles.less!" />
     <can-import from="<%= pkgName %>/app" export-as="viewModel" />
+    <can-import from="<%= pkgName %>/components/main-nav/" />
     <can-import from="<%= pkgName %>/components/page-home/" />
     <can-import from="<%= pkgName %>/components/page-auth/" />
     <can-import from="<%= pkgName %>/components/page-dashboard/" />
     <can-import from="<%= pkgName %>/components/page-four-oh-four/" />
+
+    <main-nav  {(session)}="session" {(page)}="page" {(subpage)}="subpage"></main-nav>
 
     {{#switch page}}
       {{#case 'home'}}
