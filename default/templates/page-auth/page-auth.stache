@@ -5,7 +5,8 @@
 <auth-component <% if(providers.includes('local')){ %>local="password"<%
   if(enableSignup){ %> 
     local-signup="true"
-    {(active-tab)}="authTab"<% } %>
+    {(subpage)}="subpage"<% } %>
+    {(session)}="session"
     {session-model}="@*Session.default"<% } %><%
   if(feathersUrl !== ''){ %>
     base-url="<%= feathersUrl %>"<% } %><%
