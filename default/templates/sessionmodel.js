@@ -28,11 +28,11 @@ var behaviors = [
 ];
 
 export const Session = DefineMap.extend('Session', {
-  _id: '*',
+  seal:false
+}, {
+  <%= idProp %>: '*',
   email: 'string',
-  password: 'string',
-  data: '*',
-  token: 'string'
+  password: 'string'
 });
 
 Session.List = DefineList.extend({
@@ -41,10 +41,13 @@ Session.List = DefineList.extend({
 
 export const sessionConnection = connect(behaviors, {
   url: {
-    createData: data => feathers.authenticate(data),
+    createData: data => feathers.authenticate(data).then(response => response.data),
     destroyData: () => feathers.logout().then(() => {
-      window.localStorage.clear();
-      window.location.pathname = '/';
+      if(!window.doneSsr){
+        window.localStorage.clear();
+        window.location.href = '/';
+      }
+      return;
     })
   },
   idProp: '<%= idProp %>',
