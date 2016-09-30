@@ -131,6 +131,6 @@ const AppViewModel = DefineMap.extend({
 route('/login', {page: 'auth', subpage: 'login'}); <% } if(ui && enableSignup){ %>
 route('/signup', {page: 'auth', subpage: 'signup'}); <% } if(ui){ %>
 route('/auth/failure', {page: 'auth', subpage: 'failure'});
-<% }%>route('/:page', {page: 'home'});
+<% }%>route('/{page}', {page: 'home'});
 
 export default AppViewModel;
