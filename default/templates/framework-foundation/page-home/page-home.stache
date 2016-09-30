@@ -6,7 +6,7 @@
   <div class="jumbotron">
     <div class="text-center">
       <can-import from="<%= pkgName %>/img/logo.stache" {^@value}="*logo"/>{{>*logo}}
-      <h2>My Awesome Company</h2>
+      <h2>My Awesome App</h2>
     </div>
     <div class="call-to-action text-center">
       <a href="{{routeUrl page='auth' subpage='signup'}}" class="btn btn-lg btn-primary">Signup</a>

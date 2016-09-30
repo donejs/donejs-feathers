@@ -4,7 +4,7 @@
   <div class="pure-menu pure-menu-horizontal">
     <a href="{{routeUrl}}" class="pure-menu-heading pure-menu-link brand">
       <can-import from="<%= pkgName %>/img/logo.stache" {^@value}="*logo"/>{{>*logo}}
-      My Awesome Company
+      My Awesome App
     </a>
     <ul class="pure-menu-list">
       <li class="pure-menu-item {{#routeCurrent page="home"}}active{{/routeCurrent}}">
