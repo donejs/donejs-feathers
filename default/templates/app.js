@@ -39,7 +39,7 @@ const AppViewModel = DefineMap.extend({
     value() {
       // Refresh the token only on the client.
       // TODO: Move this somewhere else. 
-      if(!window.doneSsr){
+      if(!window.doneSsr && feathers.getSession()){
         new Session().save().then(response => {
           this.session = response;
           return response;
