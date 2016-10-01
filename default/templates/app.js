@@ -71,9 +71,7 @@ const AppViewModel = DefineMap.extend({
    * The `title` attribute is used in index.stache as the HTML title.
    */
   title: {
-    value(){
-      return '<%= pkgName %>';
-    }
+    value:'<%= pkgName %>'
   },
 
   /**
