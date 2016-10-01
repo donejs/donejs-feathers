@@ -4,7 +4,8 @@ import route from 'can-route';
 import 'can-route-pushstate';
 import Session from '<%= pkgName %>/models/session';
 import feathers from '<%= pkgName %>/models/feathers';
-
+<% if(providers.indexOf('local') >= 0){ %>import '<%= pkgName %>/models/fixtures/';
+<% } %>
 const AppViewModel = DefineMap.extend({
 
   /**

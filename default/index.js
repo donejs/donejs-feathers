@@ -168,6 +168,14 @@ module.exports = generators.Base.extend({
       );
     }
 
+    if(this.props.providers.indexOf('local') >= 0){
+      this.fs.copyTpl(
+        this.templatePath('fixtures.js'),
+        this.destinationPath(path.join(folder, 'models', 'fixtures', 'fixtures.js')),
+        options
+      );
+    }
+
     this.fs.copyTpl(
       this.templatePath('sessionmodel.js'),
       this.destinationPath(path.join(folder, 'models', 'session.js')),

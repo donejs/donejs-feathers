@@ -103,37 +103,16 @@ The OAuth login providers (if you selected any) will show in the login component
 <auth-component providers="github,facebook">
 ```
 
-## Running without a Feathers server
-If you haven't started development on your Feathers server, yet, you'll need to setup a fixture for the request to the `/auth/token` endpoint. If not, the SSR server will have to wait for the request to time out, which will cause the page to load slowly. To set this up, add the following lines to the `/models/fixtures/fixtures.js` file:
+## Running without a running Feathers server
+If you enabled `local` authentication, the application comes preconfigured with session fixtures.  This means you can test login/logout right away.  When you're ready to turn off fixtures, remove the import statement from the top of `app.js`: 
 
 ```
-fixture("POST /auth/token", function(){
-  return {token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNDU2Nzg5MCwiX2lkIjoxMjM0NTY3ODkwLCJleHAiOjI5OTk5OTk5OTl9.QzMHMNufWOf1hvI9EixhtS1ckFNFYV_cV6Lfp7iCgt4"};
-});
+// import 'app-name/models/fixtures/';
 ```
-
-Now, add an import statement to the top of `app.js` to load the fixtures: 
-
-```
-import 'app-name/models/fixtures/';
-```
-
-This will create a mock response with a fake token, which will simulate a logged-in user. You can create your own, custom JWT object by going to [jwt.io](https://jwt.io) and customizing the payload data. At a minimum, you’ll need the following keys in your data:
-```
-{
-  "id": 123,
-  "_id": 123,
-  "exp": 2999999999
-}
-```
-
-Note that in the above payload data, the `exp` attribute represents the actual date when you want the token to expire. `new Date(exp * 1000)`. Also, the `id` property should match what you specified in the donejs-feathers generator (probably either `id` or `_id`).
-
-Alternatively, you can simulate a failed login by returning an error in the fixture instead of an object.
+> Note: You'll need a running Feathers server to use OAuth login.
 
 ## Getting Help
 ### DoneJS Resources
-- [DoneJS Home Page](http://donejs.com)
 - Read through the examples and docs on [donejs.com](donejs.com).
 - Visit the [DoneJS room on Gitter](https://gitter.im/donejs/donejs).
 - Read the [DoneJS forum](http://forums.donejs.com/)
