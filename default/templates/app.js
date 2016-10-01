@@ -96,6 +96,7 @@ const AppViewModel = DefineMap.extend({
     };
 
     if(page === 'logout'){
+      page = 'home';
       this.session.destroy();
     }
 
