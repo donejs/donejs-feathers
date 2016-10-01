@@ -1,6 +1,6 @@
 {
   "name": "donejs-feathers",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "A generator to quickly add FeathersJS to your DoneJS project. Includes Auth!",
   "homepage": "https://github.com/donejs/donejs-feathers",
   "author": {
