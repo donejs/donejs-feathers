@@ -15,11 +15,6 @@ const AppViewModel = DefineMap.extend({
   '*': {
     serialize: false
   },
-
-  /**
-   * Needed for routing to work.
-   */
-  route: '*',
   <% if(!ui){ %>
   /**
    * Test message to make sure something still renders
@@ -30,7 +25,6 @@ const AppViewModel = DefineMap.extend({
     value: 'Hello, Feathers!'
   },
   <% } %>
-
   /**
    * Uses whatever session data is available from Feathers JWT token, if
    * available. Because the token data is limited, a request is sent
