@@ -86,44 +86,34 @@ const AppViewModel = DefineMap.extend({
    * If a non-authenticated user tries to access a private page, they will be
    * shown the login page. Also handles 404s.
    */
-   routePage: function(page){
-     let session = this.session;
-     let pageConfig = {
-       home: 'public',
-       auth: 'public',
-       login: 'public',
-       signup: 'public',
-       dashboard: 'private'
-     };
+  routePage: function(page){
+    let pageConfig = {
+      home: 'public',
+      auth: 'public',
+      login: 'public',
+      signup: 'public',
+      dashboard: 'private'
+    };
 
-     // IF THE USER IS LOGGED IN...
-     if (session) {
-       // Perform some custom logic for logged-in users if you want.
+    if(page === 'logout'){
+      this.session.destroy();
+    }
 
-     // IF THE USER IS NOT LOGGED IN...
-     } else {
-       if (pageConfig[page] !== 'public') {
-         page = 'login';
-       }
-     }
+    if (this.session) {
+      // Perform some custom logic for logged-in users.
 
-     // 404 if the page isn't in the config.
-     if(!pageConfig[page]){
-       page = 'four-oh-four';
-     }
+    } else {
+      // Logic for non-authenticated users.
+      if (pageConfig[page] !== 'public') {
+        page = 'login';
+      }
+    }
 
-     return page;
-   },
-
-  /**
-   * Logs the user out by destroying the session, which disposes of the JWT token.
-   * It also clears localStorage to clear the caches used by can-connect.
-   */
-  logout() {
-    this.session.destroy().then(() => {
-      window.localStorage.clear();
-      window.location.pathname = '/';
-    });
+    // 404 if the page isn't in the config.
+    if(!pageConfig[page]){
+      page = 'four-oh-four';
+    }
+    return page;
   }
 });
 
