@@ -232,7 +232,15 @@ module.exports = generators.Base.extend({
       );
     }
 
-    var newDependencies = [ 'can-connect-feathers' ];
+    var newDependencies = [
+      'can-connect-feathers',
+      'feathers',
+      'feathers-socketio',
+      'feathers-hooks',
+      'feathers-authentication-client',
+      'socket.io-client',
+      'steal-socket.io'
+    ];
     if (this.props.ui) {
       newDependencies.push('steal-svg');
     }
