@@ -1,10 +1,10 @@
-import set from 'can-set';
 import DefineMap from 'can-define/map/';
 import DefineList from 'can-define/list/list';
+import connect from 'can-connect';
 import feathersClient from './feathers-client';
 import feathersServiceBehavior from 'can-connect-feathers/service';
 import behaviors from './behaviors';
-import algebra from './algebras';
+import algebra from './algebra';
 
 var User = DefineMap.extend('User', {
   <%= idProp %>: 'any',
@@ -16,7 +16,7 @@ User.List = DefineList.extend({
   '#': User
 });
 
-Session.connection = connect([
+User.connection = connect([
   feathersServiceBehavior,
   ...behaviors
 ], {
