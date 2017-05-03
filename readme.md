@@ -15,22 +15,26 @@ To add this generator to your DoneJS application run
 donejs add feathers
 ```
 
-DoneJS and FeathersJS make for a killer full-stack solution for creating apps.  This generator will help you get both working together quickly.  You can either generate a basic Feathers connection, or you can opt to generate a full site template with an included CSS framework.
+DoneJS and FeathersJS make for a killer full-stack solution for creating apps.  This generator creates all of the model files and utilities needed to get both working together quickly. The current `2.0` version only supports the basic Feathers setup. UI generation has been removed and will likely move to separate generators in the future.  
 
-## Basic Feathers connection
-The `Basic feathers connection` option will use the [can-connect-feathers](https://github.com/feathersjs/can-connect-feathers) package to generate a connection.  You can then use the DoneJS generator to create supermodels to work with it.  See the [can-connect-feathers documentation](https://github.com/feathersjs/can-connect-feathers) to see how easy it is to make a can-connect supermodel work with `can-connect-feathers`.
+**This generator could potentially overwrite files in an existing application. It is meant to be used immediately after generating a new DoneJS application.**
 
-After specifying the connection options, you'll have the opportunity to create a few more files that are pre-configured to work with SSR.
+Here's a summary of the files that will be added or modified in a DoneJS project.  To understand more about how these modules work together, check out the [`can-connect-feathers` documentation](https://canjs.com/doc/can-connect-feathers.html).
+- `app.js` - a `session` property is added to the `AppViewModel` that reads from the `Session` model's `current` property.
+- `models/algebra.js` - contains algebra for `can-connect` that enables support for the Feathers query syntax.
+- `models/behaviors.js` - contains the minimum `can-connect` behaviors that are needed to work with Feathers and realtime data.  The Feathers behaviors are added in the individual Model files, like `user.js` and `session.js`.
+- `models/feathers-client.js` - sets up the Feathers client with Socket.io and points it to the location of the Feathers server.  It also configures all of the npm-installed Feathers plugins.
+- `models/session.js` - handles authentication.  It connects the `Session` model to the `can-connect-feathers/session/` behavior.  It also automatically populates the `user` data using the `User` model.
+- `models/user.js` a basic User model.  It uses the `can-connect-feathers/service/` behavior to connect to the Feathers server.  The default user endpoint is `/users`, but can be modified here.
 
-## Full Site Layout
-
-Choose the `Full site layout` option to create a basic application with a popular CSS framework.  The generated site will be fully functional with [JavaScript Web Token](https://jwt.io/)-based authentication and Server-Side Rendering fully functional.  The site includes a home page with docs, a signup/login page and a pretty-much blank `dashboard` page as a placeholder for the app.
-
-For the full-site solution, the following CSS frameworks are supported:
-
- * Bootstrap 3 - [getbootstrap.com](http://getbootstrap.com/)
- * Foundation - [foundation.zurb.com](http://foundation.zurb.com/)
- * Pure - [purecss.io](http://purecss.io)
+The following packages will be added to your project from npm:
+- `can-connect-feathers`
+- `feathers`
+- `feathers-hooks`
+- `feathers-socketio`
+- `feathers-authentication-client`
+- `steal-socket.io`
+- `socket.io-client`
 
 
 ## Developing
