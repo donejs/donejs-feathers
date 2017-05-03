@@ -21,6 +21,9 @@ export const Session = DefineMap.extend('Session', {
     }
   },
   exp: 'number',
+  aud: 'string',
+  iat: 'number',
+  iss: 'string',
   sub: 'string'
 });
 
