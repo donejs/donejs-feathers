@@ -4,12 +4,14 @@ import socketio from 'feathers-socketio/client';
 import auth from 'feathers-authentication-client';
 import hooks from 'feathers-hooks';
 
-var socket = io({
+const socket = io('<%= feathersUrl %>', {
   transports: ['websocket']
 });
 const feathersClient = feathers()
   .configure(socketio(socket))
   .configure(hooks())
-  .configure(auth());
+  .configure(auth({
+    storage: window.localStorage
+  }));
 
 export default feathersClient;

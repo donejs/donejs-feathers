@@ -17,16 +17,17 @@ module.exports = generators.Base.extend({
     console.log('');
     console.log('Add Feathers to your DoneJS app.');
     console.log('');
-		this.prompt({
+    this.prompt({
       name: 'ui',
       type: 'list',
       message: 'Select an option',
       choices: [{
-        name: 'Basic feathers connection.',
+        name: 'Basic Feathers setup.',
         value: false
-      }, {
-        name: 'Full site layout',
-        value: true
+      // Hiding the UI option for this release
+      // }, {
+      //   name: 'Full site layout',
+      //   value: true
       }]
     }, function (props) {
       this.props.ui = props.ui;
@@ -34,7 +35,7 @@ module.exports = generators.Base.extend({
       var prompts = [{
         name: 'feathersUrl',
         type: 'input',
-        message: 'What is the base URL of the Feathers server? Leave blank if same as SSR server.',
+        message: 'What is the Feathers server base URL? Leave this blank if it\'s the same as the web or SSR server.',
         default: ''
       }, {
         name: 'idProp',
@@ -65,7 +66,8 @@ module.exports = generators.Base.extend({
           name: 'providers',
           type: 'checkbox',
           message: 'Select the login options you want.',
-          choices: [{
+          choices: [
+            {
               name: 'local (email/password)',
               value: 'local'
             },
@@ -74,7 +76,7 @@ module.exports = generators.Base.extend({
             'facebook',
             'github',
             'google',
-            'instagram',
+            'instagram'
           ]
         });
 
@@ -88,19 +90,19 @@ module.exports = generators.Base.extend({
             name: 'app.js - Setup auth attributes in the main app. Overwrites app.js',
             value: 'appJs',
             checked: false
-          }, {
-            name: 'Signup Model for Local Auth',
-            value: 'enableSignup',
-            checked: false
-          }, {
-            name: 'Session Model',
-            value: 'sessionModel',
-            checked: false
+          // }, {
+          //   name: 'Signup Model for Local Auth',
+          //   value: 'enableSignup',
+          //   checked: false
+          // }, {
+          //   name: 'Session Model',
+          //   value: 'sessionModel',
+          //   checked: false
           }]
         });
       }
 
-      this.prompt(prompts, function(props){
+      this.prompt(prompts, function (props) {
         if (props.setup) {
           props.appJs = props.setup.indexOf('appJs') >= 0;
           props.enableSignup = props.setup.indexOf('enableSignup') >= 0;
@@ -123,30 +125,30 @@ module.exports = generators.Base.extend({
             }]
           });
         }
-        this.prompt(prompts, function(props){
+        this.prompt(prompts, function (props) {
           _.merge(this.props, props);
 
           done();
         }.bind(this));
       }.bind(this));
-		}.bind(this));
+    }.bind(this));
   },
 
   writing: function () {
     var done = this.async();
     var pkg = utils.getPkgOrBail(this, done);
-    if(!pkg) {
+    if (!pkg) {
       return;
     }
 
     // Make a general options object for all pages.
-    var folder = _.get(pkg, 'system.directories.lib') || './';
+    var folder = _.get(pkg, 'system.directories.lib') || './src';
     var options = {
       pkgName: pkg.name
     };
     _.merge(options, this.props);
 
-    if(this.props.appJs) {
+    if (this.props.appJs) {
       this.fs.copyTpl(
         this.templatePath('app.js'),
         this.destinationPath(path.join(folder, 'app.js')),
@@ -154,77 +156,75 @@ module.exports = generators.Base.extend({
       );
     }
 
-    this.fs.copyTpl(
-      this.templatePath('feathers.js'),
-      this.destinationPath(path.join(folder, 'models', 'feathers.js')),
-      options
-    );
-
-    if(this.props.enableSignup) {
+    const copyModelTemplate = (name, options) => {
       this.fs.copyTpl(
-        this.templatePath('signupmodel.js'),
-        this.destinationPath(path.join(folder, 'models', 'signup.js')),
+        this.templatePath(path.join('models', name)),
+        this.destinationPath(path.join(folder, 'models', name)),
         options
       );
+    };
+
+    const modelFiles = [
+      'algebra.js',
+      'behaviors.js',
+      'feathers-client.js',
+      'session.js',
+      'user.js'
+    ];
+
+    modelFiles.forEach(fileName => copyModelTemplate(fileName, options));
+
+    if (this.props.providers && this.props.providers.indexOf('local') >= 0) {
+      copyModelTemplate('fixtures.js');
     }
 
-    if(this.props.providers.indexOf('local') >= 0){
-      this.fs.copyTpl(
-        this.templatePath('fixtures.js'),
-        this.destinationPath(path.join(folder, 'models', 'fixtures', 'fixtures.js')),
-        options
-      );
-    }
-
-    this.fs.copyTpl(
-      this.templatePath('sessionmodel.js'),
-      this.destinationPath(path.join(folder, 'models', 'session.js')),
-      options
-    );
-
-    if(this.props.ui) {
+    // UI generation is currently disabled.
+    if (this.props.ui) {
       this.fs.copyTpl(
         this.templatePath(path.join('page-dashboard', '**', '*.*')),
         this.destinationPath(path.join(folder, 'components', 'page-dashboard')),
         options
       );
 
+      // copy framework files
       var frameworkFolder = `framework-${this.props.framework}`;
-      this.fs.copyTpl(
-        this.templatePath(path.join(frameworkFolder, 'index.stache')),
-        this.destinationPath(path.join(folder, 'index.stache')),
-        options
-      );
-      this.fs.copyTpl(
-        this.templatePath(path.join(frameworkFolder, 'styles.less')),
-        this.destinationPath(path.join(folder, 'styles.less')),
-        options
-      );
-      this.fs.copyTpl(
-        this.templatePath(path.join('page-auth', '**', '*.*')),
-        this.destinationPath(path.join(folder, 'components', 'page-auth')),
-        options
-      );
-      this.fs.copyTpl(
-        this.templatePath(path.join(frameworkFolder, 'main-nav', '**', '*.*')),
-        this.destinationPath(path.join(folder, 'components', 'main-nav')),
-        options
-      );
-      this.fs.copyTpl(
-        this.templatePath(path.join(frameworkFolder, 'page-home', '**', '*.*')),
-        this.destinationPath(path.join(folder, 'components', 'page-home')),
-        options
-      );
-      this.fs.copyTpl(
-        this.templatePath(path.join('page-four-oh-four', '**', '*.*')),
-        this.destinationPath(path.join(folder, 'components', 'page-four-oh-four')),
-        options
-      );
+      const copyFrameworkFile = name => {
+        this.fs.copyTpl(
+          this.templatePath(path.join(frameworkFolder, name)),
+          this.destinationPath(path.join(folder, name)),
+          options
+        );
+      };
+      const frameworkFiles = [
+        'index.stache',
+        'styles.less'
+      ];
+      frameworkFiles.forEach(fileName => copyFrameworkFile(fileName));
+
+      // copy framework components
+      const copyFrameworkComponent = componentName => {
+        this.fs.copyTpl(
+          this.templatePath(path.join(frameworkFolder, componentName, '**', '*.*')),
+          this.destinationPath(path.join(folder, 'components', componentName)),
+          options
+        );
+      };
+      const frameworkComponents = [
+        'page-home',
+        'page-auth',
+        'main-nav',
+        'page-four-oh-four'
+      ];
+      frameworkComponents.forEach(componentName => copyFrameworkComponent(componentName));
+
+      // copy styles
       this.fs.copyTpl(
         this.templatePath(path.join(frameworkFolder, 'less', '**', '*.*')),
         this.destinationPath(path.join(folder, 'less')),
         options
       );
+
+      // copy images
       this.fs.copy(
         this.templatePath(path.join('img', '**', '*.*')),
         this.destinationPath(path.join(folder, 'img')),
@@ -232,24 +232,10 @@ module.exports = generators.Base.extend({
       );
     }
 
-    var newDependencies = [
-      'can-connect-feathers',
-      'can-component@3.0.0-pre.18',
-      'can-connect@0.6.0-pre.21',
-      'can-define@0.7.29',
-      'can-route@3.0.0-pre.18',
-      'can-route-pushstate@3.0.0-pre.7',
-      'can-stache@3.0.0-pre.23',
-      'can-view-autorender@3.0.0-pre.4',
-      'can-zone@0.5.8',
-      'done-autorender@0.9.0-pre.1',
-      'done-component@0.6.0-pre.2',
-      'done-css@2.1.0-pre.0',
-      'done-serve@0.3.0-pre.1',
-      'generator-donejs@0.10.0-pre.4',
-      'steal@0.16.38',
-      'steal-stache@3.0.0-pre.3'
-    ];
+    var newDependencies = [ 'can-connect-feathers' ];
+    if (this.props.ui) {
+      newDependencies.push('steal-svg');
+    }
     if (this.props.framework === 'bootstrap') {
       newDependencies.push('bootstrap');
     }
@@ -260,17 +246,10 @@ module.exports = generators.Base.extend({
     if (this.props.framework === 'pure') {
       newDependencies.push('pure-css');
     }
-    if(this.props.ui) {
+    if (this.props.ui) {
       newDependencies.push('auth-component');
     }
     this.npmInstall(newDependencies, {'save': true});
-
-    var newDevDeps = [
-      'can-fixture@0.4.0-pre.15',
-      'donejs-cli@0.10.0-pre.0',
-      'steal-tools@0.16.8'
-    ];
-    this.npmInstall(newDevDeps, {'saveDev': true});
 
     done();
   }

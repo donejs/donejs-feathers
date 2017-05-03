@@ -1,8 +1,10 @@
-<can-import from="auth-component" />
+<can-import from="auth-component/auth-container" />
 <can-import from="can-stache/helpers/route" /><% if(providers.includes('local')){ %>
+<can-import from="auth-component/forms/login" />
+<can-import from="auth-component/forms/signup" />
 <can-import from="<%= pkgName %>/models/session" {^@value}="*Session"/><% } %>
 
-<auth-component <% if(providers.includes('local')){ %>local="password"<%
+<auth-container <% if(providers.includes('local')){ %>local="password"<%
   if(enableSignup){ %> 
     local-signup="true"
     {(subpage)}="subpage"<% } %>
@@ -14,4 +16,10 @@
     providers="<%= providers.join(',') %>"<% } %>>
   <can-import from="<%= pkgName %>/img/logo.stache" {^@value}="*logo"/>{{>*logo}}
   <h1>My Awesome App</h1>
-</auth-component>
+  {{#is page 'login'}}
+    <auth-login-form />
+  {{/is}}
+  {{#is page 'signup'}}
+    <auth-signup-form />
+  {{/is}}
+</auth-container>
