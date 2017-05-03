@@ -26,6 +26,10 @@ const AppViewModel = DefineMap.extend({
     }
   },
 
+  message: {
+    value: 'Hello World!'
+  },
+
   /**
    * The `title` attribute is used in index.stache as the HTML title.
    */
