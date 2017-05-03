@@ -1,14 +1,16 @@
 import Component from 'can-component';
 import DefineMap from 'can-define/map/';
-import './page-auth.less!';
-import template from './page-auth.stache!';
+import './page-four-oh-four.less!';
+import template from './page-four-oh-four.stache!';
 
 export const ViewModel = DefineMap.extend({
-  page: 'any', // bound to the page in the AppState.
+  message: {
+    value: 'This is the page-four-oh-four component'
+  }
 });
 
 export default Component.extend({
-  tag: 'page-auth',
+  tag: 'page-four-oh-four',
   ViewModel,
   template
 });
