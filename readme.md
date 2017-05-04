@@ -15,7 +15,7 @@ To add this generator to your DoneJS application run
 donejs add feathers
 ```
 
-DoneJS and FeathersJS make for a killer full-stack solution for creating apps.  This generator creates all of the model files and utilities needed to get both working together quickly. The current `2.0` version only supports the basic Feathers setup. UI generation has been removed and will likely move to separate generators in the future.  
+DoneJS and FeathersJS make for a killer full-stack solution for creating apps.  This generator creates all of the model files and utilities needed to get both working together quickly. The current `2.x` version only sets up the model layer of the app. UI generation will move to separate generators sometime in the future.
 
 **This generator could potentially overwrite files in an existing application. It is meant to be used immediately after generating a new DoneJS application.**
 
@@ -24,6 +24,7 @@ Here's a summary of the files that will be added or modified in a DoneJS project
 - `models/algebra.js` - contains algebra for `can-connect` that enables support for the Feathers query syntax.
 - `models/behaviors.js` - contains the minimum `can-connect` behaviors that are needed to work with Feathers and realtime data.  The Feathers behaviors are added in the individual Model files, like `user.js` and `session.js`.
 - `models/feathers-client.js` - sets up the Feathers client with Socket.io and points it to the location of the Feathers server.  It also configures all of the npm-installed Feathers plugins.
+- `models/fixtures.js` - includes mocks that simulate auth if you don't have a Feathers server running.
 - `models/session.js` - handles authentication.  It connects the `Session` model to the `can-connect-feathers/session/` behavior.  It also automatically populates the `user` data using the `User` model.
 - `models/user.js` a basic User model.  It uses the `can-connect-feathers/service/` behavior to connect to the Feathers server.  The default user endpoint is `/users`, but can be modified here.
 
