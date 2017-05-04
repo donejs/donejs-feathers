@@ -26,6 +26,10 @@ const AppViewModel = DefineMap.extend({
     }
   },
 
+  logout () {
+    return Session.current.destroy();
+  },
+
   message: {
     value: 'Hello World!'
   },
