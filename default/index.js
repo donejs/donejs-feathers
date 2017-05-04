@@ -1,17 +1,27 @@
-var generators = require('yeoman-generator');
+var Generator = require('yeoman-generator');
 var path = require('path');
 var _ = require('lodash');
 var utils = require('../lib/utils');
+var cmd = require('child_process').execSync;
 
-module.exports = generators.Base.extend({
+var yarnInstalled;
+try {
+  cmd('yarn bin').toString();
+  yarnInstalled = true;
+} catch (err) {
+  yarnInstalled = false;
+}
+
+module.exports = class extends Generator {
   // templatePath: utils.templatePath(path.join('.donejs', 'templates', 'app')),
 
-  constructor: function () {
-    generators.Base.apply(this, arguments);
-    this.props = {};
-  },
+  constructor (args, opts) {
+    super(args, opts);
 
-  prompting: function () {
+    this.props = {};
+  }
+
+  prompting () {
     var done = this.async();
 
     console.log('');
@@ -28,15 +38,28 @@ module.exports = generators.Base.extend({
       type: 'input',
       message: 'What will be the property for the model ids? (For example, id or _id)',
       default: 'id'
+    }, {
+      name: 'packager',
+      type: 'list',
+      message: 'Which package manager are you using (has to be installed globally)?',
+      default: yarnInstalled ? 'yarn@>= 0.18.0' : 'npm@>= 3.0.0',
+      choices: [{
+        name: 'npm',
+        value: 'npm@>= 3.0.0'
+      }, {
+        name: 'Yarn',
+        value: 'yarn@>= 0.18.0'
+      }]
     }];
 
-    this.prompt(prompts, function (props) {
-      _.merge(this.props, props);
+    this.prompt(prompts).then(props => {
+      console.log(props)
+      this.props = props;
       done();
-    }.bind(this));
-  },
+    });
+  }
 
-  writing: function () {
+  writing () {
     var done = this.async();
     var pkg = utils.getPkgOrBail(this, done);
     if (!pkg) {
@@ -49,6 +72,7 @@ module.exports = generators.Base.extend({
       pkgName: pkg.name
     };
     _.merge(options, this.props);
+
 
     // copy app.js
     this.fs.copyTpl(
@@ -83,8 +107,14 @@ module.exports = generators.Base.extend({
       'socket.io-client',
       'steal-socket.io'
     ];
-    this.npmInstall(newDependencies, {'save': true});
+    if (this.props.packager === 'yarn@>= 0.18.0') {
+      console.log('installing with yarn')
+      this.yarnInstall(newDependencies, {'save': true});
+    } else {
+      console.log('installing with npm')
+      this.npmInstall(newDependencies, {'save': true});
+    }
 
     done();
   }
-});
+};
