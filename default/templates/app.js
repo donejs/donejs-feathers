@@ -1,9 +1,9 @@
-/* global window */
 import DefineMap from 'can-define/map/';
 import route from 'can-route';
 import 'can-route-pushstate';
 import Session from '~/models/session';
-import '~/models/fixtures/';
+// Uncomment this line if you don't have a Feathers Server running, but want to test auth.
+// import '~/models/fixtures/';
 
 const AppViewModel = DefineMap.extend({
 

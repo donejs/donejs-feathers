@@ -1,5 +1,0 @@
-<div class="container">
-  <h2>Dashboard</h2> 
-  <p>{{message}}</p>
-  <p><a href="javascript://" ($click)="logout">Logout</a></p>
-</div>
