@@ -16,7 +16,7 @@ export const Session = DefineMap.extend('Session', {
         return lastSetVal;
       }
       if (this.userId) {
-        User.get({_id: this.userId}).then(resolve);
+        User.get(this.userId).then(resolve);
       }
     }
   },
