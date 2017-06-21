@@ -53,7 +53,7 @@ module.exports = class extends Generator {
     }];
 
     this.prompt(prompts).then(props => {
-      console.log(props)
+      console.log(props);
       this.props = props;
       done();
     });
@@ -108,10 +108,10 @@ module.exports = class extends Generator {
       'steal-socket.io'
     ];
     if (this.props.packager === 'yarn@>= 0.18.0') {
-      console.log('installing with yarn')
+      console.log('installing with yarn');
       this.yarnInstall(newDependencies, {'save': true});
     } else {
-      console.log('installing with npm')
+      console.log('installing with npm');
       this.npmInstall(newDependencies, {'save': true});
     }
 
