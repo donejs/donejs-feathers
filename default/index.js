@@ -94,7 +94,7 @@ module.exports = class extends Generator {
       'feathers-client.js',
       'session.js',
       'user.js',
-      'fixtures.js'
+      'fixtures/fixtures.js'
     ];
     modelFiles.forEach(fileName => copyModelTemplate(fileName, options));
 
