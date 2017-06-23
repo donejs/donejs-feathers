@@ -40,8 +40,8 @@ const AppViewModel = DefineMap.extend({
   title: {
     value: '<%= pkgName %>'
   }
+ 
 });
 
-route('/{page}', {page: 'home'});
 
 export default AppViewModel;
