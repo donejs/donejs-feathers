@@ -32,7 +32,7 @@ module.exports = class extends Generator {
       name: 'feathersUrl',
       type: 'input',
       message: 'What is the Feathers server base URL? Leave this blank if it\'s the same as the web or SSR server.',
-      default: ''
+      default: 'http://localhost:3030'
     }, {
       name: 'idProp',
       type: 'input',
